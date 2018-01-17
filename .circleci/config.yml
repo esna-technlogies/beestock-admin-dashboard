@@ -6,13 +6,38 @@ version: 2
 jobs:
   build:
     docker:
-      # specify the version you desire here
-      - image: circleci/node:7.10
+      - image: circleci/node:8.9.1
+    braches:
+      - only: master
 
     working_directory: ~/beestock-admin-dashboard
 
     steps:
       - checkout
-      - run: npm install
 
+      - run:
+          name: Install Project Dependencies
+          command: npm install
+          working_directory: ~/beestock-admin-dashboard/vuejs-app
 
+      - run:
+          name: Build The Project - Production Version
+          command: npm run build
+          working_directory: ~/beestock-admin-dashboard/vuejs-app
+
+      - add_ssh_keys:
+          fingerprints:
+            - "20:7f:8b:cd:93:f6:07:61:f2:b2:4e:46:f8:b3:a1:23"
+
+      - run:
+         name: Clear ~/.ssh/known_hosts and Add host admin.beesstock.com to it
+         command: ssh-keyscan admin.beesstock.com > ~/.ssh/known_hosts
+
+      - deploy:
+          name: Deploy dist/ to remote 'admin.beestock.com' instance
+          command: scp -rp dist/ ubuntu@admin.beesstock.com:~/project/
+          working_directory: ~/beestock-admin-dashboard/vuejs-app
+
+      - run:
+          name: Restart The Application - Using 'forever'
+          command: ssh ubuntu@admin.beesstock.com 'forever start -l ~/project/logs/forever.log -o ~/project/logs/out.log -e ~/project/logs/error.log server.js'
