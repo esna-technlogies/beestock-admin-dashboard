@@ -2,7 +2,7 @@
   <transition name="fade">
     <div class='vuestic-alert alert' :class="alertClass" v-if="!hidden">
         <slot></slot>
-        <i class="fa fa-close alert-close" v-if="withCloseBtn" @click="hide()"></i>
+        <!--<i class="fa fa-close alert-close" v-if="withCloseBtn" @click="hide()"></i>-->
     </div>
   </transition>
 

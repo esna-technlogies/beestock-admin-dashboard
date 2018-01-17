@@ -6,7 +6,7 @@
       <div class="col-md-12">
         <vuestic-alert type="danger" :withCloseBtn="true">
           {{'extra.alerts.badCredentials' | translate}}
-          <i class="fa fa-close alert-close"></i>
+          <i class="fa fa-close alert-close" @click="showBadCredentialsAlert=false"></i>
         </vuestic-alert>
       </div>
     </div>
@@ -51,7 +51,8 @@
       return {
         userName: '',
         password: '',
-        showBadCredentialsAlert: false
+        hidden: true,
+        showBadCredentialsAlert: false,
       }
     },
 
