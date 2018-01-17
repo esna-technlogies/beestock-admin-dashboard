@@ -40,4 +40,4 @@ jobs:
 
       - run:
           name: Restart The Application - Using 'forever'
-          command: ssh ubuntu@admin.beesstock.com 'forever start -l ~/project/logs/forever.log -o ~/project/logs/out.log -e ~/project/logs/error.log ~/project/server.js'
+          command: ssh ubuntu@admin.beesstock.com 'forever restart -a -l ~/project/logs/forever.log -o ~/project/logs/out.log -e ~/project/logs/error.log ~/project/server.js'

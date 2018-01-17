@@ -1,6 +1,7 @@
 <template>
   <div class="login">
     <h2>{{'auth.welcome' | translate}}</h2>
+
     <div class="row" v-if="showBadCredentialsAlert">
       <div class="col-md-12">
         <vuestic-alert type="danger" :withCloseBtn="true">
