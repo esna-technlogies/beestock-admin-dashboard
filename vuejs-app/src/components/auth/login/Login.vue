@@ -15,7 +15,7 @@
       <div class="form-group">
         <div class="input-group">
           <input type="text" id="userName" v-model="userName" required="required" autofocus/>
-          <label class="control-label" for="userName">{{'auth.email' | translate}}</label><i class="bar"></i>
+          <label class="control-label" for="userName">{{'auth.username' | translate}}</label><i class="bar"></i>
         </div>
       </div>
       <div class="form-group">
