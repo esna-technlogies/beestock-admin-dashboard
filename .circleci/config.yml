@@ -7,8 +7,6 @@ jobs:
   build:
     docker:
       - image: circleci/node:8.9.1
-    braches:
-      - only: master
 
     working_directory: ~/beestock-admin-dashboard
 
