@@ -176,6 +176,7 @@
     "basic": "Tabla basica",
     "styled": "Colores, Iconos, Etiquetas",
     "advanced": "Búsqueda y Paginación",
+    "users": "",
     "headings": {
       "city": "Ciudad",
       "email": "Email",
