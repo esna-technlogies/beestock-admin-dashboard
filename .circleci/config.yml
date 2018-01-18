@@ -11,18 +11,17 @@ jobs:
     working_directory: ~/beestock-admin-dashboard
 
     steps:
-      working_directory: ./vuejs-app
-
       - checkout
 
       - run:
           name: Install Project Dependencies
           command: npm install
-
+          working_directory: ./vuejs-app
 
       - run:
           name: Build The Project For Production
           command: npm run build
+          working_directory: ./vuejs-app
 
       - run:
          name: Clear ~/.ssh/known_hosts and Add host admin.beesstock.com to it
@@ -31,6 +30,7 @@ jobs:
       - deploy:
           name: Deploy dist/ to remote 'admin.beestock.com' instance
           command: scp -rp dist/ ubuntu@admin.beesstock.com:~/project/
+          working_directory: ./vuejs-app
 
       - run:
           name: Restart The Application - Using 'forever'
