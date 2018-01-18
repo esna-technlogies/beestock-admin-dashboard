@@ -15,7 +15,7 @@
 </template>
 
 <script>
-  import Dropdown from '../../../directives/Dropdown'
+  import Dropdown from '../../../../directives/Dropdown'
 
   export default {
     directives: {
@@ -45,7 +45,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import "../../../sass/variables";
+  @import "../../../../sass/variables";
 
   .btn.dropdown-toggle, .dropdown-menu {
     min-width: 13rem;

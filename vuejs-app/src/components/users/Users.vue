@@ -19,11 +19,11 @@
 <script>
   /* eslint-disable */
   import Widget from '../vuestic-components/vuestic-widget/VuesticWidget'
-  import DataTable from '../users-datatable/UsersDataTable'
+  import DataTable from './users-datatable/UsersDataTable'
   import BadgeColumn from './BadgeColumn.vue'
   import Vue from 'vue'
-  import FieldsDef from '../users-datatable/data/fields-definition'
-  import ItemsPerPageDef from '../users-datatable/data/items-per-page-definition'
+  import FieldsDef from './users-datatable/data/fields-definition'
+  import ItemsPerPageDef from './users-datatable/data/items-per-page-definition'
 
   Vue.component('badge-column', BadgeColumn)
 

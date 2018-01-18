@@ -40,9 +40,9 @@
   import ItemsPerPage from './datatable-components/ItemsPerPage.vue'
   import Vue from 'vue'
   import LocalData from './data/local-data'
-  import DataTableStyles from '../users-datatable/data/data-table-styles'
+  import DataTableStyles from './data/data-table-styles'
 
-  import helpers from '../../helpers'
+  import helpers from '../../../helpers/index'
 
   const originalData = LocalData.data
 
@@ -166,7 +166,7 @@
 </script>
 
 <style lang="scss">
-  @import "../../sass/variables";
+  @import "../../../sass/variables";
 
   @media (max-width: 1258px) {
     .pagination-link-btn:first-child, .pagination-link-btn:last-child {
