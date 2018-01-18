@@ -2,15 +2,19 @@
 #
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
-version: 2
+version: 2  # This indicates a circleci version
 jobs:
   build:
+
+    # This indicates the docker image used will be the one built with node.js v8.9.1 from circleci repo
     docker:
       - image: circleci/node:8.9.1
 
+    # This indicates the working directory for the following steps
     working_directory: ~/beestock-admin-dashboard
 
     steps:
+      # This would checkout the project from github to the current working directory '.'
       - checkout
 
       - run:
@@ -23,15 +27,21 @@ jobs:
           command: npm run build
           working_directory: ./vuejs-app
 
+      # We need here to add 'admin.beesstock.com' to known_hosts so the OS can communicate with it
       - run:
          name: Clear ~/.ssh/known_hosts and Add host admin.beesstock.com to it
          command: ssh-keyscan admin.beesstock.com > ~/.ssh/known_hosts
 
+      # A build is done under ./vuejs-app/dist, so copy it remotely on 'admin.beesstock.com' server
       - deploy:
           name: Deploy dist/ to remote 'admin.beestock.com' instance
           command: scp -rp dist/ ubuntu@admin.beesstock.com:~/project/
           working_directory: ./vuejs-app
 
+      # Using 'forever' command:
+      # . Restart the application
+      # . Specify options for saving different types of logs (forever, output, error)
+      # . Specific '-a' for appending to current logs
       - run:
-          name: Restart The Application - Using 'forever'
+          name: Restart The Application
           command: ssh ubuntu@admin.beesstock.com 'forever restart -a -l ~/project/logs/forever.log -o ~/project/logs/out.log -e ~/project/logs/error.log ~/project/server.js'
