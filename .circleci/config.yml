@@ -25,10 +25,6 @@ jobs:
           command: npm run build
           working_directory: ~/beestock-admin-dashboard/vuejs-app
 
-      - add_ssh_keys:
-          fingerprints:
-            - "20:7f:8b:cd:93:f6:07:61:f2:b2:4e:46:f8:b3:a1:23"
-
       - run:
          name: Clear ~/.ssh/known_hosts and Add host admin.beesstock.com to it
          command: ssh-keyscan admin.beesstock.com > ~/.ssh/known_hosts
