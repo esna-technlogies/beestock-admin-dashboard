@@ -14,6 +14,7 @@ export default {
       path: '/maps/google-maps',
       component: lazyLoading('maps/google-maps/GoogleMapsPage'),
       meta: {
+        secured: true,
         title: 'Google Maps'
       }
     },
@@ -22,6 +23,7 @@ export default {
       path: '/maps/leaflet-maps',
       component: lazyLoading('maps/leaflet-maps/LeafletMapsPage'),
       meta: {
+        secured: true,
         title: 'Leaflet Maps'
       }
     },
@@ -30,6 +32,7 @@ export default {
       path: '/maps/bubble-maps',
       component: lazyLoading('maps/bubble-maps/BubbleMapsPage'),
       meta: {
+        secured: true,
         title: 'Bubble Maps'
       }
     },
@@ -38,6 +41,7 @@ export default {
       path: '/maps/line-maps',
       component: lazyLoading('maps/line-maps/LineMapsPage'),
       meta: {
+        secured: true,
         title: 'Line Maps'
       }
     }

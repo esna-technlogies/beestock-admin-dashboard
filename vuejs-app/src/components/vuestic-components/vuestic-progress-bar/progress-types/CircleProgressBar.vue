@@ -16,7 +16,7 @@
       'color',
       'startColor',
       'backgroundColor',
-      'isActiveUser'
+      'isActive'
     ],
     computed: {
       backgroundImage () {

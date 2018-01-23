@@ -5,27 +5,8 @@ export default {
   path: '/users',
   component: lazyLoading('users/Users'),
   meta: {
+    secured: true,
     title: 'menu.users',
     iconClass: 'fa fa-users'
   }
-  // ,
-  // children: [
-  //   {
-  //     name: 'UsersDataTable',
-  //     path: '',
-  //     component: lazyLoading('users/UsersDataTable'),
-  //     meta: {
-  //       title: 'Users Table'
-  //     }
-  //   },
-  //   {
-  //     name: 'UserDetails',
-  //     path: ':uuid',
-  //     component: lazyLoading('users/UserDetails'),
-  //     props: true,
-  //     meta: {
-  //       title: 'User Details'
-  //     }
-  //   }
-  // ]
 }

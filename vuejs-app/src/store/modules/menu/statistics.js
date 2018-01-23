@@ -4,6 +4,7 @@ export default {
   name: 'Statistics',
   meta: {
     expanded: false,
+    secured: true,
     title: 'menu.statistics',
     iconClass: 'vuestic-icon vuestic-icon-statistics'
   },
@@ -14,6 +15,7 @@ export default {
       path: '/statistics/charts',
       component: lazyLoading('statistics/charts/Charts'),
       meta: {
+        secured: true,
         title: 'menu.charts'
       }
     },
@@ -22,6 +24,7 @@ export default {
       path: '/statistics/progress-bars',
       component: lazyLoading('statistics/progress-bars/ProgressBars'),
       meta: {
+        secured: true,
         title: 'menu.progressBars'
       }
     }

@@ -11,7 +11,7 @@
       </div>
     </div>
 
-    <form name="login" v-on:submit.prevent="submitLogin">
+    <form name="login" v-on:submit.prevent="doLogin">
       <div class="form-group">
         <div class="input-group">
           <input type="text" id="userName" v-model="userName" required="required" autofocus/>
@@ -28,75 +28,81 @@
         <button class="btn btn-primary" type="submit">
           {{'auth.login' | translate}}
         </button>
-
-        <!-- <router-link class='link' :to="{name: 'Signup'}">{{'auth.createAccount' | translate}}</router-link> -->
       </div>
     </form>
   </div>
 </template>
 
 <script>
-  /* eslint-disable */
+  import store from '../../../store'
+  import VuesticAlert from '../../../components/vuestic-components/vuestic-alert/VuesticAlert'
+
+  import auth from '../../../helpers/auth'
   import helpers from '../../../helpers'
   import api from '../../../services/beeStockApi'
-  import store from '../../../store'
 
   export default {
     name: 'login',
+    metaInfo: {
+      title: 'Login'
+    },
+    components: {
+      VuesticAlert
+    },
     data () {
       return {
         userName: '',
         password: '',
         hidden: true,
-        showBadCredentialsAlert: false,
+        showBadCredentialsAlert: false
       }
     },
 
     methods: {
-      submitLogin: function () {
+      doLogin: function () {
         api.post(store.getters.userSecurityEndpoint.login, {
           userName: this.userName,
           password: this.password
         })
         .then(response => {
           if (response.status === 200) {
-            let token = response.data.token;
+            let token = response.data.token
             let roles = helpers.getUserRolesFromJwtToken(token)
 
             if (this.isAdmin(roles)) {
               helpers.setJwtTokenInCookie(token)
-              this.$router.replace({ name: 'Dashboard' })
+              this.$router.replace(this.redirectTo())
             }
           }
-
         })
         .catch(error => {
-          let responseStatus = error.response.status;
+          let responseStatus = error.response.status
           if (responseStatus === 401) {
             this.showBadCredentialsAlert = true
           }
-        });
+        })
       },
 
       isAdmin: function (roles) {
         for (let role of roles) {
           if (role === store.getters.roles.admin) {
-            return true;
+            return true
           }
         }
-
-        return false;
+        return false
       },
-
-      validateJwtToken: function () {
-        if (!helpers.jwtTokenIsInvalid()) {
-          this.$router.push({ name: 'Dashboard' })
-        }
+      redirectTo () {
+        const { path, name } = this.$route.query
+        if (path) return { path: path }
+        if (name) return { name: name }
+        return { name: 'Dashboard' }
       }
     },
 
-    beforeMount () {
-      this.validateJwtToken();
+    created () {
+      if (auth.isAuthenticated()) {
+        this.$router.replace(this.redirectTo())
+      }
     }
   }
 </script>

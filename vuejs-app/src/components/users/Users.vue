@@ -25,6 +25,9 @@
 
   export default {
     name: 'Users',
+    metaInfo: {
+      title: 'Users'
+    },
     components: {
       'users-data-table': DataTable,
       Widget

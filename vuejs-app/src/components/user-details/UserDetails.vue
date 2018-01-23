@@ -199,8 +199,6 @@
 import VuesticSimpleSelect from '../vuestic-components/vuestic-simple-select/VuesticSimpleSelect'
 import VuesticWidget from '../vuestic-components/vuestic-widget/VuesticWidget'
 import CountriesList from './data/country-list'
-// import UserRecentPhotos from '../users/UserRecentPhotos'
-import VuesticSwitch from '../vuestic-components/vuestic-switch/VuesticSwitch'
 import Multiselect from 'vue-multiselect'
 import VuesticPreLoader from '../vuestic-components/vuestic-preloader/VuesticPreLoader'
 import VueGallery from 'vue-gallery'
@@ -210,29 +208,29 @@ import store from '../../store'
 import userService from '../../services/user'
 import photoService from '../../services/photo'
 
-
 const inactiveRole = store.getters.roles.inactive
 
 export default {
   name: 'user-details',
-
+  metaInfo () {
+    return {
+      title: this.userDetails.fullName ? this.userDetails.fullName : 'UserDetails'
+    }
+  },
   components: {
     VuesticPreLoader,
-    VuesticSwitch,
     VuesticSimpleSelect,
     VuesticWidget,
     Multiselect,
     'gallery': VueGallery,
     'vue-simple-spinner': Spinner
   },
-
   props: {
     uuid: {
       type: String,
       required: true
     }
   },
-
   data () {
     return {
       isLoading: true,
@@ -240,7 +238,6 @@ export default {
       isUserDetails: false,
       firstName: '',
       lastName: '',
-      fullName: '',
       email: '',
       mobileNumber: '',
       country: {},
@@ -261,14 +258,6 @@ export default {
       savingChanges: false,
       changesSaved: false,
       beforeUpdateTimers: {}
-    }
-  },
-  computed: {
-    isFirstNameValid () {
-      return !this.errors.has('firstName')
-    },
-    isLastNameValid () {
-      return !this.errors.has('lastName')
     }
   },
   methods: {
@@ -301,7 +290,6 @@ export default {
     setFormFields () {
       this.firstName = this.userDetails.firstName
       this.lastName = this.userDetails.lastName
-      this.fullName = this.userDetails.fullName
       this.email = this.userDetails.email
       this.mobileNumber = this.userDetails.mobileNumber
       this.isActiveUser = this.userDetails.isActiveUser

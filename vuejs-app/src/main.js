@@ -10,6 +10,7 @@ import { sync } from 'vuex-router-sync'
 import VuesticPlugin from 'src/components/vuestic-components/vuestic-components-plugin'
 import './i18n'
 import ToggleButton from 'vue-js-toggle-button'
+import auth from './helpers/auth'
 
 Vue.use(VuesticPlugin)
 Vue.use(BootstrapVue)
@@ -30,7 +31,20 @@ let mediaHandler = () => {
 
 router.beforeEach((to, from, next) => {
   store.commit('setLoading', true)
-  document.title = to.meta.title
+
+  const requiresAuth = to.matched.some(({ meta }) => {
+    return meta.secured
+  })
+
+  if (requiresAuth) {
+    if (auth.isAuthenticated() && auth.isTokenValid()) {
+      return next()
+    }
+
+    const query = { path: to.fullPath }
+    return next({ name: 'Login', query })
+  }
+
   next()
 })
 

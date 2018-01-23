@@ -11,10 +11,12 @@
   import AuthLayout from './components/layout/AuthLayout'
   import VuesticPreLoader from './components/vuestic-components/vuestic-preloader/VuesticPreLoader.vue'
 
-  import store from './store'
-
   export default {
     name: 'app',
+    metaInfo: {
+      title: 'Default Title',
+      titleTemplate: '%s | Admin Dashboard'
+    },
     components: {
       VuesticPreLoader,
       AuthLayout,

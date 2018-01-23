@@ -43,6 +43,7 @@
     "vue-chartjs": "^2.8.1",
     "vue-gallery": "^1.2.5",
     "vue-js-toggle-button": "^1.2.2",
+    "vue-meta": "^1.4.2",
     "vue-multiselect": "^2.0.8",
     "vue-router": "^3.0.1",
     "vue-simple-spinner": "^1.2.8",

@@ -1,24 +1,33 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Meta from 'vue-meta'
+
 
 import menuModule from 'vuex-store/modules/menu'
 
-// import User from '../components/users/User'
-// import UserDetails from '../components/user-details/UserDetails'
 import lazyLoading from '../store/modules/menu/lazyLoading'
 
 Vue.use(Router)
+Vue.use(Meta)
 
 export default new Router({
   routes: [
     ...generateRoutesFromMenu(menuModule.state.items),
+    {
+      name: 'Login',
+      path: '/auth/login',
+      component: lazyLoading('auth/login/Login'),
+      meta: {
+        secured: false
+      }
+    },
     {
       name: 'UserDetails',
       path: '/user-details/:uuid',
       component: lazyLoading('user-details/UserDetails'),
       props: true,
       meta: {
-        title: 'User Details'
+        secured: true
       }
     },
     {path: '*', redirect: { name: getDefaultRoute(menuModule.state.items).name }}
