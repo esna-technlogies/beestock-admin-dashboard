@@ -22,7 +22,7 @@
       'max',
       'color',
       'size',
-      'isActive'
+      'isActiveUser'
     ],
     mounted () {
       let progressBar = this.$refs.progressBar

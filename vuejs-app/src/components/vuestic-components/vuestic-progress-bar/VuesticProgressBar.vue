@@ -70,7 +70,7 @@
           if (startValue !== this.value || this.animatedValue === this.value) {
             clearInterval(valueInterval)
             if (this.value === this.max) {
-              this.isActive = false
+              this.isActiveUser = false
             }
           } else {
             this.animatedValue += delta
@@ -83,7 +83,7 @@
         value: 0,
         valueAnimationInterval: 2000,
         animatedValue: 0,
-        isActive: false,
+        isActiveUser: false,
         startColor: this.$store.state.app.config.palette[this.startColorName],
         color: this.$store.state.app.config.palette[this.colorName],
         backgroundColor: this.$store.state.app.config.palette[this.backgroundColorName]

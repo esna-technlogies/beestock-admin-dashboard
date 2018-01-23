@@ -198,7 +198,9 @@
     "back": "Back to Users",
     "heads": {
       "form": "User Details",
-      "recentPhotos": "Recent Photos"
+      "recentPhotos": "Recent Photos",
+      "activeUser": "ACTIVE",
+      "inactiveUser": "INACTIVE"
     },
     "form": {
       "inputs": {

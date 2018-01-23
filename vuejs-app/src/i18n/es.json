@@ -189,7 +189,9 @@
     "back": "",
     "heads": {
       "form": "",
-      "recentPhotos": ""
+      "recentPhotos": "",
+      "activeUser": "",
+      "inactiveUser": ""
     },
     "form": {
       "inputs": {

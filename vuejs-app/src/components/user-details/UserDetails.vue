@@ -22,13 +22,9 @@
               <router-link :to="{path: '/users'}">{{'userDetails.back' | translate}}</router-link>
             </div>
 
-            <div class="col-lg-3 mr-4 text-right">
-              <toggle-button
-                id="toggle-status"
-                :value="accountStatus" :sync="true"
-                :width=110 :height=30
-                :color="{checked: '#41DF7C', unchecked: '#D44946'}"
-                :labels="{checked: 'ACTIVE', unchecked: 'INACTIVE'}" />
+            <div class="col-md-2 mr-4 text-right">
+              <b-badge pill variant="primary" v-if="isActiveUser">{{ 'userDetails.heads.activeUser' | translate }}</b-badge>
+              <b-badge pill variant="danger" v-else>{{ 'userDetails.heads.inactiveUser' | translate }}</b-badge>
 
             </div>
           </div>
@@ -248,7 +244,7 @@ export default {
       email: '',
       mobileNumber: '',
       country: {},
-      accountStatus: false,
+      isActiveUser: false,
       countryList: CountriesList,
       userRecentPhotos_500: [],
       userRecentPhotos_1000: [],
@@ -308,7 +304,7 @@ export default {
       this.fullName = this.userDetails.fullName
       this.email = this.userDetails.email
       this.mobileNumber = this.userDetails.mobileNumber
-      this.accountStatus = !this.userDetails.accounStatus
+      this.isActiveUser = this.userDetails.isActiveUser
       this.country = this.userDetails.country
     },
     storeUserDetails (user) {
@@ -317,7 +313,7 @@ export default {
       this.userDetails.fullName = user.full_name
       this.userDetails.email = user.email
       this.userDetails.mobileNumber = user.mobile_number.number
-      this.userDetails.accountStatus = !user.access_info.roles.includes(inactiveRole)
+      this.userDetails.isActiveUser = !user.access_info.roles.includes(inactiveRole)
 
       for (const country of CountriesList) {
         if (user.country === country.abbr) {
@@ -596,5 +592,15 @@ export default {
     border: 1px solid #ebebeb;
     /*margin: 5px;*/
     height: 250px
+  }
+
+  .badge {
+    min-width: 6rem;
+    display: inline-block;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 1rem;
+    letter-spacing: .0625rem;
+    padding: .3em;
   }
 </style>
