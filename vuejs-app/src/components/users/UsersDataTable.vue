@@ -19,6 +19,8 @@
               v-bind:paginationPath="paginationPath"
               :appendParams="moreParams"
               :perPage="perPage"
+              track-by="uuid"
+              @vuetable:row-clicked="rowClicked"
               @vuetable:pagination-data="onPaginationData">
     </vuetable>
     <div class="d-flex justify-content-center mb-4">
@@ -34,15 +36,15 @@
 
 <script>
   /* eslint-disable */
+  import Vue from 'vue'
   import Vuetable from 'vuetable-2/src/components/Vuetable'
   import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
-  import FilterBar from './datatable-components/FilterBar.vue'
-  import ItemsPerPage from './datatable-components/ItemsPerPage.vue'
-  import Vue from 'vue'
-  import LocalData from './data/local-data'
-  import DataTableStyles from './data/data-table-styles'
+  import FilterBar from './users-datatable/datatable-components/FilterBar.vue'
+  import ItemsPerPage from './users-datatable/datatable-components/ItemsPerPage.vue'
+  import LocalData from './users-datatable/data/local-data'
+  import DataTableStyles from './users-datatable/data/data-table-styles'
 
-  import helpers from '../../../helpers/index'
+  import helpers from '../../helpers/index'
 
   const originalData = LocalData.data
 
@@ -112,6 +114,23 @@
       }
     },
     methods: {
+      rowClicked (payload) {
+        const userUUID = payload.uuid
+        if (userUUID) {
+          const direction = {
+            name: 'UserDetails',
+            params: {
+              uuid: userUUID
+            }
+          }
+
+          this.$router.push(direction)
+
+        } else {
+          console.error(`ERROR: User with uuid '${userUUID}' is not found`)
+        }
+
+      },
       onFilterSet (filterText) {
         if (this.apiMode) {
           this.moreParams = {
@@ -166,7 +185,7 @@
 </script>
 
 <style lang="scss">
-  @import "../../../sass/variables";
+  @import "../../sass/variables";
 
   @media (max-width: 1258px) {
     .pagination-link-btn:first-child, .pagination-link-btn:last-child {

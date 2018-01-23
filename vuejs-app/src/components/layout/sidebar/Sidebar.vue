@@ -51,7 +51,6 @@
         expand: 'toggleExpandMenuItem'
       }),
       toggleMenuItem (item) {
-        console.log('item', item)
         if (item.children) {
           this.expand({   // TODO: check default prop
             menuItem: item,

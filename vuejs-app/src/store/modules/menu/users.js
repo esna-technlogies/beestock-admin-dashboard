@@ -6,6 +6,26 @@ export default {
   component: lazyLoading('users/Users'),
   meta: {
     title: 'menu.users',
-    iconClass: 'vuestic-icon vuestic-icon-user'
+    iconClass: 'fa fa-users'
   }
+  // ,
+  // children: [
+  //   {
+  //     name: 'UsersDataTable',
+  //     path: '',
+  //     component: lazyLoading('users/UsersDataTable'),
+  //     meta: {
+  //       title: 'Users Table'
+  //     }
+  //   },
+  //   {
+  //     name: 'UserDetails',
+  //     path: ':uuid',
+  //     component: lazyLoading('users/UserDetails'),
+  //     props: true,
+  //     meta: {
+  //       title: 'User Details'
+  //     }
+  //   }
+  // ]
 }

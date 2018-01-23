@@ -194,6 +194,27 @@
       "score": "Score"
     }
   },
+  "userDetails": {
+    "back": "Back to Users",
+    "heads": {
+      "form": "User Details",
+      "recentPhotos": "Recent Photos"
+    },
+    "form": {
+      "inputs": {
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "email": "Email Address",
+        "mobileNumber": {
+          "code": "Mobile Code",
+          "number": "Mobile Number"
+        }
+      },
+      "selects": {
+        "country": "Country - [Mobile Code]"
+      }
+    }
+  },
   "user": {
     "language": "Change Language",
     "logout": "Logout",

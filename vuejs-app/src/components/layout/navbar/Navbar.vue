@@ -94,14 +94,11 @@
   /* eslint-disable */
 
   import Vue from 'vue'
-  import store from '../../../store'
   import { mapGetters, mapActions } from 'vuex'
   import Dropdown from 'directives/Dropdown'
   import Modal from '../../vuestic-components/vuestic-modal/VuesticModal'
 
   import helpers from '../../../helpers'
-
-  let axios  = helpers.getAxiosWithJwtToken()
 
   export default {
     name: 'navbar',
@@ -137,7 +134,7 @@
       },
       logout: function () {
         helpers.removeJwtToken();
-        helpers.routerPush({ name: 'Login' })
+        this.$router.push({ name: 'Login' })
       }
     }
   }

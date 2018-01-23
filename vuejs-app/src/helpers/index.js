@@ -1,24 +1,20 @@
-/* eslint-disable */
-
 import store from '../store'
 import JwtDecode from 'jwt-decode'
-import router from '../router'
-import axios from 'axios'
 
 /*
- * JWT Token Functions
+ * JWT Token Related Functions
  */
 let jwtTokenName = store.getters.jwtTokenName
 
-let setJwtTokenInCookie = function (tokenValue) {
+let setJwtTokenInCookie = (tokenValue) => {
   document.cookie = `${jwtTokenName}=${tokenValue}; Path=/`
 }
 
-let removeJwtToken = function () {
+let removeJwtToken = () => {
   document.cookie = `${jwtTokenName}=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;`
 }
 
-let getTokenValueFromCookie = function () {
+let getTokenValueFromCookie = () => {
   const decodedCookie = decodeURIComponent(document.cookie)
   const cookieParts = decodedCookie.split(';')
 
@@ -33,56 +29,54 @@ let getTokenValueFromCookie = function () {
   return ''
 }
 
-let getUserRolesFromJwtToken = function (token) {
+let getUserRolesFromJwtToken = (token) => {
   return JwtDecode(token).roles
 }
 
-let getUUIDFromToken = function (token) {
-  console.log('userId', JwtDecode(token).userId);
-  
+let getUUIDFromToken = (token) => {
   return JwtDecode(token).userId
 }
 
-let jwtTokenIsInvalid = function () {
-  return getTokenValueFromCookie() ? false : true;
+let jwtTokenIsInvalid = () => {
+  return !getTokenValueFromCookie()
 }
 
-let jwtTokenIsExpired = function () {
+let jwtTokenIsExpired = () => {
   const token = getTokenValueFromCookie()
   const decoded = JwtDecode(token)
-  const nowUnixTimestamp = Math.floor(new Date() / 1000);
-  const tokenUnixTimestamp = decoded.exp;
+  const nowUnixTimestamp = Math.floor(new Date() / 1000)
+  const tokenUnixTimestamp = decoded.exp
   const MaxTimstamp = Math.max(nowUnixTimestamp, tokenUnixTimestamp)
-  
-  return MaxTimstamp === nowUnixTimestamp ? true : false;
+
+  return MaxTimstamp === nowUnixTimestamp
 }
 
 /*
- *  Router Functions
+ *
  */
-let routerPush = function (direction) {
-  router.push(direction)
+let reformatUrl = ({ url, pathParams = {}, queryParams = {} }) => {
+  url = writePathParams(url, pathParams)
+  url = writeQueryParams(url, queryParams)
+  return url
 }
 
-let routerReplace = function (direction) {
-  router.replace(direction)
+let writePathParams = (url, pathParams) => {
+  if (Object.keys(pathParams).length !== 0) {
+    for (let param of Object.keys(pathParams)) {
+      url = url.replace(`{${param}}`, pathParams[param])
+    }
+  }
+  return url
 }
 
-
-/*
- *  Function to create custom intances of Axios
- */
-let getAxios = function() {
-  return axios.create({
-    baseURL: 'http://api.beesstock.com/',
-  });
-}
-
-let getAxiosWithJwtToken = function() {
-  return axios.create({
-    baseURL: 'http://api.beesstock.com/',
-    headers: {'Authorization': `Bearer ${getTokenValueFromCookie().trim()}`}
-  });
+let writeQueryParams = (url, queryParams) => {
+  if (Object.keys(queryParams).length !== 0) {
+    url = url + '?'
+    for (let param of Object.keys(queryParams)) {
+      url = `${url}${param}=${queryParams[param]}&`
+    }
+  }
+  return url.replace(/&$/, '')
 }
 
 
@@ -94,8 +88,5 @@ export default {
   getUUIDFromToken,
   jwtTokenIsInvalid,
   jwtTokenIsExpired,
-  routerPush,
-  routerReplace,
-  getAxios,
-  getAxiosWithJwtToken
+  reformatUrl
 }

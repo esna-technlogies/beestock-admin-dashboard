@@ -4,33 +4,29 @@
       <div class="row">
         <div class="col-md-12">
           <widget :headerText="$t('tables.users')">
-            <data-table :apiUrl="apiUrl"
+            <users-data-table :apiUrl="apiUrl"
                         :tableFields="tableFields"
                         :itemsPerPage="itemsPerPage"
                         :sortFunctions="sortFunctions"
                         :apiMode="apiMode"
-                        :paginationPath="paginationPath"></data-table>
+                        :paginationPath="paginationPath"></users-data-table>
           </widget>
+
         </div>
       </div>
   </div>
 </template>
 
 <script>
-  /* eslint-disable */
   import Widget from '../vuestic-components/vuestic-widget/VuesticWidget'
-  import DataTable from './users-datatable/UsersDataTable'
-  import BadgeColumn from './BadgeColumn.vue'
-  import Vue from 'vue'
+  import DataTable from './UsersDataTable'
   import FieldsDef from './users-datatable/data/fields-definition'
   import ItemsPerPageDef from './users-datatable/data/items-per-page-definition'
-
-  Vue.component('badge-column', BadgeColumn)
 
   export default {
     name: 'Users',
     components: {
-      DataTable,
+      'users-data-table': DataTable,
       Widget
     },
     data () {

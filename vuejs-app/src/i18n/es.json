@@ -134,7 +134,8 @@
     "statistics": "Estadisticas",
     "tables": "Tablas",
     "typography": "Tipografía",
-    "uiElements": "Elementos UI"
+    "uiElements": "Elementos UI",
+    "users": ""
   },
   "messages": {
     "all": "Ver todos los mensajes",
@@ -182,6 +183,27 @@
       "email": "Email",
       "name": "Nombre",
       "score": "Puntuación"
+    }
+  },
+  "userDetails": {
+    "back": "",
+    "heads": {
+      "form": "",
+      "recentPhotos": ""
+    },
+    "form": {
+      "inputs": {
+        "firstName": "",
+        "lastName": "",
+        "email": "",
+        "mobileNumber": {
+          "code": "",
+          "number": ""
+        }
+      },
+      "selects": {
+        "country": ""
+      }
     }
   },
   "user": {

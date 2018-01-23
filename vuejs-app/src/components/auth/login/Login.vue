@@ -37,13 +37,9 @@
 
 <script>
   /* eslint-disable */
-  import JwtDecode from 'jwt-decode';
   import helpers from '../../../helpers'
-
-  import { mapGetters } from 'vuex'
+  import api from '../../../services/beeStockApi'
   import store from '../../../store'
-
-  let axios  = helpers.getAxios()
 
   export default {
     name: 'login',
@@ -58,7 +54,7 @@
 
     methods: {
       submitLogin: function () {
-        axios.post(store.getters.userSecurityApi.login, {
+        api.post(store.getters.userSecurityEndpoint.login, {
           userName: this.userName,
           password: this.password
         })
@@ -69,7 +65,7 @@
 
             if (this.isAdmin(roles)) {
               helpers.setJwtTokenInCookie(token)
-              helpers.routerReplace({ name: 'Dashboard' })
+              this.$router.replace({ name: 'Dashboard' })
             }
           }
 
@@ -94,7 +90,7 @@
 
       validateJwtToken: function () {
         if (!helpers.jwtTokenIsInvalid()) {
-          helpers.routerPush({ name: 'Dashboard' })
+          this.$router.push({ name: 'Dashboard' })
         }
       }
     },
