@@ -12,14 +12,6 @@ Vue.use(Router)
 export default new Router({
   routes: [
     ...generateRoutesFromMenu(menuModule.state.items),
-    // {
-    //   name: 'UsersDataTable',
-    //   path: '/users',
-    //   component: lazyLoading('users/UsersDataTable'),
-    //   meta: {
-    //     title: 'Users Table'
-    //   }
-    // },
     {
       name: 'UserDetails',
       path: '/user-details/:uuid',
@@ -29,21 +21,6 @@ export default new Router({
         title: 'User Details'
       }
     },
-    // {
-    //   path: '/user/:uuid',
-    //   component: User,
-    //   children: [
-    //     {
-    //       path: '',
-    //       name: 'userDetails',
-    //       component: UserDetails,
-    //       props: true,
-    //       meta: {
-    //         title: 'User Details'
-    //       }
-    //     }
-    //   ]
-    // },
     {path: '*', redirect: { name: getDefaultRoute(menuModule.state.items).name }}
   ]
 })
