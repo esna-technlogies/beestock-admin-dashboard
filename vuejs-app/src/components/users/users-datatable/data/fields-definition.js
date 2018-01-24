@@ -9,7 +9,8 @@ export default {
       title: 'Email Address'
     },
     {
-      name: 'mobile_number.international_number_for_calling',
+      // name: 'mobile_number.international_number_for_calling',
+      name: 'mobile_number',
       title: 'Mobile Number'
     },
     {

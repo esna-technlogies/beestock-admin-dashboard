@@ -217,6 +217,26 @@
       }
     }
   },
+  "alerts": {
+    "types": {
+      "success": "SUCCESS",
+      "danger": "ERROR",
+      "warning": "WARNING"
+    },
+    "messages": {
+      "deleteUser": {
+        "success": {
+          "200": "User has been deleted successfully!",
+          "204": "User has been deleted successfully!"
+        },
+        "error": {
+          "400": "Bad request: The system is unable to process the request",
+          "404": "No user with the provided UUID was found",
+          "500": "The system is unable to create the user due to a server side error"
+        }
+      }
+    }
+  },
   "user": {
     "language": "Change Language",
     "logout": "Logout",

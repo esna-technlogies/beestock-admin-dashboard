@@ -3,14 +3,16 @@
 import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue'
 import VeeValidate from 'vee-validate'
+import VuesticPlugin from 'src/components/vuestic-components/vuestic-components-plugin'
+import ToggleButton from 'vue-js-toggle-button'
+
+
 import App from './App'
 import store from './store'
 import router from './router'
 import { sync } from 'vuex-router-sync'
-import VuesticPlugin from 'src/components/vuestic-components/vuestic-components-plugin'
-import './i18n'
-import ToggleButton from 'vue-js-toggle-button'
 import auth from './helpers/auth'
+import './i18n'
 
 Vue.use(VuesticPlugin)
 Vue.use(BootstrapVue)

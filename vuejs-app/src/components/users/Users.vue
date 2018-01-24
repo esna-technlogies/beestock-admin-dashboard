@@ -1,5 +1,14 @@
 <template>
   <div class="Users">
+    <div class="row" v-if="alertType">
+      <div class="col-md-12">
+        <vuestic-alert :type="alertType" :withCloseBtn="true">
+          <span class="badge badge-pill" :class="'badge-' + alertType">{{ alertType | translate }}</span>
+          {{ alertMessage | translate }}
+          <i class="fa fa-close alert-close"></i>
+        </vuestic-alert>
+      </div>
+    </div>
 
       <div class="row">
         <div class="col-md-12">
@@ -11,16 +20,16 @@
                         :apiMode="apiMode"
                         :paginationPath="paginationPath"></users-data-table>
           </widget>
-
         </div>
       </div>
   </div>
 </template>
 
 <script>
-  import Widget from '../vuestic-components/vuestic-widget/VuesticWidget'
   import DataTable from './UsersDataTable'
   import FieldsDef from './users-datatable/data/fields-definition'
+  import Widget from '../vuestic-components/vuestic-widget/VuesticWidget'
+  import VuesticAlert from '../vuestic-components/vuestic-alert/VuesticAlert'
   import ItemsPerPageDef from './users-datatable/data/items-per-page-definition'
 
   export default {
@@ -28,9 +37,28 @@
     metaInfo: {
       title: 'Users'
     },
+    props: {
+      alertType: {
+        type: String,
+        default: ''
+      },
+      alertMessage: {
+        type: String,
+        default: ''
+      }
+    },
     components: {
-      'users-data-table': DataTable,
-      Widget
+      Widget,
+      VuesticAlert,
+      'users-data-table': DataTable
+    },
+    computed: {
+      a () {
+        this.alertType = 'success'
+      },
+      b () {
+        this.alertMessage = 'message'
+      }
     },
     data () {
       return {
@@ -41,6 +69,8 @@
         sortFunctions: FieldsDef.sortFunctions,
         paginationPath: ''
       }
+    },
+    created () {
     }
   }
 

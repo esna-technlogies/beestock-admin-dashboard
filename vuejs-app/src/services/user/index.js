@@ -26,11 +26,19 @@ let updateByUUID = (uuid, queryParams = {}) => {
   return returnPromiseOfResponse(api.patch(url, getFormData(queryParams)))
 }
 
+let deleteByUUID = (uuid) => {
+  const url = helpers.reformatUrl({
+    url: userAccountEndpoint.delete,
+    pathParams: {uuid}
+  })
+  return returnPromiseOfResponse(api.delete(url))
+}
+
 
 let returnPromiseOfResponse = (queryMethod) => {
   return new Promise((resolve, reject) => {
     queryMethod.then((response) => {
-      if (response.status === 200) {
+      if ([200, 201, 202, 204].includes(response.status)) {
         resolve(response)
       } else {
         reject(response)
@@ -44,5 +52,6 @@ let returnPromiseOfResponse = (queryMethod) => {
 
 export default {
   findByUUID,
-  updateByUUID
+  updateByUUID,
+  deleteByUUID
 }

@@ -208,6 +208,26 @@
       }
     }
   },
+  "alerts": {
+    "types": {
+      "success": "",
+      "danger": "",
+      "warning": ""
+    },
+    "messages": {
+      "deleteUser": {
+        "success": {
+          "200": "",
+          "204": ""
+        },
+        "error": {
+          "400": "",
+          "404": "",
+          "500": ""
+        }
+      }
+    }
+  },
   "user": {
     "language": "Cambiar Idioma",
     "profile": "Mi Perfil",

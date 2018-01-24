@@ -17,19 +17,42 @@
       <div class="Set row no-gutters">
         <div class="header col-12">
           <div class="row justify-content-between">
-            <div class="header-text col-md-6">
-              <h2>{{ userDetails.fullName }}</h2>
+            <div class="header-text col-md-5">
+              <h2>
+                <span class="mr-3">{{ userDetails.fullName }}</span>
+                <div class="d-inline-block" v-if="isActiveUser">
+                  <span class="badge badge-pill badge-success align-top">{{ 'userDetails.heads.activeUser' | translate }}</span>
+                  <!--<b-badge pill variant="primary" :class="'align-top'">{{ 'userDetails.heads.activeUser' | translate }}</b-badge>-->
+                </div>
+                <div class="d-inline-block" v-else>
+                  <span class="badge badge-pill badge-danger align-top">{{ 'userDetails.heads.inactiveUser' | translate }}</span>
+                  <!--<b-badge pill variant="danger" :class="'align-top'">{{ 'userDetails.heads.inactiveUser' | translate }}</b-badge>-->
+                </div>
+              </h2>
               <router-link :to="{path: '/users'}">{{'userDetails.back' | translate}}</router-link>
             </div>
 
-            <div class="col-md-2 mr-4 text-right">
-              <b-badge pill variant="primary" v-if="isActiveUser">{{ 'userDetails.heads.activeUser' | translate }}</b-badge>
-              <b-badge pill variant="danger" v-else>{{ 'userDetails.heads.inactiveUser' | translate }}</b-badge>
-
+            <div class="col-md-4 mt-2 mr-4 text-right">
+              <button class="btn btn-danger btn-micro" style="font-size: 90% !important;" @click="confirmDeleteUser()">
+                <div class="btn-with-icon-content">
+                  <i class="fa fa-trash"></i>
+                  DELETE
+                </div>
+              </button>
             </div>
           </div>
         </div>
       </div>
+
+      <modal
+        :show.sync="showConfirmDeleteUserModal"
+        ref="confirmDeleteUserModal"
+        :okText="'modal.confirm' | translate"
+        :cancelText="'modal.cancel' | translate"
+        :okClass="'btn btn-danger'"
+        @ok="deleteUser">
+        <div slot="title">Confirm Delete User</div>
+      </modal>
 
       <div class="user-settings row">
         <div class="col-md-12">
@@ -196,14 +219,16 @@
 </template>
 
 <script>
-import VuesticSimpleSelect from '../vuestic-components/vuestic-simple-select/VuesticSimpleSelect'
-import VuesticWidget from '../vuestic-components/vuestic-widget/VuesticWidget'
-import CountriesList from './data/country-list'
-import Multiselect from 'vue-multiselect'
-import VuesticPreLoader from '../vuestic-components/vuestic-preloader/VuesticPreLoader'
+import store from '../../store'
+
 import VueGallery from 'vue-gallery'
 import Spinner from 'vue-simple-spinner'
-import store from '../../store'
+import Multiselect from 'vue-multiselect'
+import CountriesList from './data/country-list'
+import Modal from '../vuestic-components/vuestic-modal/VuesticModal'
+import VuesticWidget from '../vuestic-components/vuestic-widget/VuesticWidget'
+import VuesticPreLoader from '../vuestic-components/vuestic-preloader/VuesticPreLoader'
+import VuesticSimpleSelect from '../vuestic-components/vuestic-simple-select/VuesticSimpleSelect'
 
 import userService from '../../services/user'
 import photoService from '../../services/photo'
@@ -218,10 +243,11 @@ export default {
     }
   },
   components: {
+    Modal,
+    Multiselect,
+    VuesticWidget,
     VuesticPreLoader,
     VuesticSimpleSelect,
-    VuesticWidget,
-    Multiselect,
     'gallery': VueGallery,
     'vue-simple-spinner': Spinner
   },
@@ -236,6 +262,7 @@ export default {
       isLoading: true,
       isError: false,
       isUserDetails: false,
+      showConfirmDeleteUserModal: true,
       firstName: '',
       lastName: '',
       email: '',
@@ -261,6 +288,31 @@ export default {
     }
   },
   methods: {
+    deleteUser () {
+      userService.deleteByUUID(this.uuid)
+        .then((successResponse) => {
+          const status = successResponse.status
+          const alertMessage = `alerts.messages.deleteUser.success.${status}`
+          this.$router.push({
+            name: 'Users',
+            params: {
+              alertType: 'success',
+              alertMessage: alertMessage
+            }
+          })
+        })
+        .catch((errorResponse) => {
+          const status = errorResponse.status
+          const alertMessage = `alerts.messages.deleteUser.error.${status}`
+          this.$router.push({
+            name: 'Users',
+            params: {
+              alertType: 'danger',
+              alertMessage: alertMessage
+            }
+          })
+        })
+    },
     nameWithMobileCode ({ name, mobileCode }) {
       return `${name} — [${mobileCode}]`
     },
@@ -382,6 +434,10 @@ export default {
     },
     clearBeforeUpdateTimers (fieldName) {
       clearTimeout(this.beforeUpdateTimers[fieldName])
+    },
+    confirmDeleteUser () {
+      this.$refs.confirmDeleteUserModal.open()
+      // this.$refs.smallModal.open()
     }
   },
 
@@ -583,12 +639,16 @@ export default {
   }
 
   .badge {
-    min-width: 6rem;
+    min-width: 4rem;
     display: inline-block;
     font-weight: bold;
     text-transform: uppercase;
-    font-size: 1rem;
-    letter-spacing: .0625rem;
-    padding: .3em;
+    font-size: .7rem;
+    letter-spacing: .1rem;
+    padding: 0.2rem .7rem;
+  }
+
+  .btn.btn-micro {
+    padding: 0.5rem 1.2rem 0.4rem 1.2rem;
   }
 </style>

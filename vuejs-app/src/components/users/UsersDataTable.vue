@@ -2,10 +2,12 @@
   <div class="table-responsive">
     <div class="d-flex flex-md-row flex-column justify-content-md-between align-items-center">
       <filter-bar @filter="onFilterSet"></filter-bar>
+
       <items-per-page :options="itemsPerPage"
                       :defaultPerPage="perPage"
                       @items-per-page="onItemsPerPage"></items-per-page>
     </div>
+
     <vuetable ref="vuetable"
               :apiUrl="apiUrl"
               :apiMode="apiMode"
@@ -16,45 +18,53 @@
               :dataManager="dataManager"
               :css="css.table"
               dataPath="users"
-              v-bind:paginationPath="paginationPath"
               :appendParams="moreParams"
               :perPage="perPage"
               track-by="uuid"
               @vuetable:row-clicked="rowClicked"
               @vuetable:pagination-data="onPaginationData">
     </vuetable>
-    <div class="d-flex justify-content-center mb-4">
-      <vuetable-pagination ref="pagination"
-                           :css="css.pagination"
-                           :onEachSide="onEachSide"
-                           @vuetable-pagination:change-page="onChangePage">
 
-      </vuetable-pagination>
+    <div class="row no-gutters well justify-content-between">
+      <div class="col">
+          <vuetable-pagination-info :class="'mt-2'" ref="paginationInfo"></vuetable-pagination-info>
+      </div>
+
+      <div class="col text-right">
+        <vuetable-pagination ref="pagination"
+                             :css="css.pagination.micro"
+                             :onEachSide="onEachSide"
+                             @vuetable-pagination:change-page="onChangePage">
+        </vuetable-pagination>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-  /* eslint-disable */
   import Vue from 'vue'
   import Vuetable from 'vuetable-2/src/components/Vuetable'
-  import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
-  import FilterBar from './users-datatable/datatable-components/FilterBar.vue'
-  import ItemsPerPage from './users-datatable/datatable-components/ItemsPerPage.vue'
   import LocalData from './users-datatable/data/local-data'
   import DataTableStyles from './users-datatable/data/data-table-styles'
+  import FilterBar from './users-datatable/datatable-components/FilterBar.vue'
+  import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
+  import ItemsPerPage from './users-datatable/datatable-components/ItemsPerPage.vue'
+  import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
 
   import helpers from '../../helpers/index'
+  import CountriesList from '../user-details/data/country-list'
 
+  const defaultPerPage = 10
   const originalData = LocalData.data
 
   export default {
     name: 'users-data-table',
     components: {
-      FilterBar,
       Vuetable,
+      FilterBar,
+      ItemsPerPage,
       VuetablePagination,
-      ItemsPerPage
+      VuetablePaginationInfo
     },
     props: {
       apiUrl: {
@@ -92,17 +102,18 @@
       paginationPath: {
         type: String,
         default () {
-          return ''
+          return 'pagination'
         }
       }
     },
     data () {
       return {
+        rows: originalData,
         tableData: LocalData,
-        perPage: 10,
+        perPage: defaultPerPage,
         colorClasses: {},
         moreParams: {
-          limit: 10
+          limit: defaultPerPage
         },
         dataCount: 0,
         css: DataTableStyles,
@@ -123,13 +134,10 @@
               uuid: userUUID
             }
           }
-
           this.$router.push(direction)
-
         } else {
           console.error(`ERROR: User with uuid '${userUUID}' is not found`)
         }
-
       },
       onFilterSet (filterText) {
         if (this.apiMode) {
@@ -151,6 +159,7 @@
       },
       onPaginationData (paginationData) {
         this.$refs.pagination.setPaginationData(paginationData)
+        this.$refs.paginationInfo.setPaginationData(paginationData)
       },
       onChangePage (page) {
         this.$refs.vuetable.changePage(page)
@@ -179,6 +188,42 @@
           pagination: pagination,
           data: data.slice(pagination.from - 1, pagination.to)
         }
+      },
+      transform (data) {
+        let last = data._links.last ? data._links.last.href : data._links.self.href
+        let lastPage = parseInt(last.match(/page=\d+/i)[0].replace('page=', ''))
+        let total = lastPage * this.perPage
+        let currentPage = data._links.self.page_number
+
+        const transformed = { links: {} }
+
+        transformed.links.pagination = {
+          total: total,
+          per_page: this.perPage,
+          current_page: currentPage,
+          last_page: lastPage,
+          next_page_url: data._links.next ? data._links.next.href : null,
+          prev_page_url: data._links.prev ? data._links.prev.href : null,
+          from: (currentPage - 1) * this.perPage + 1,
+          to: Math.min(currentPage * this.perPage, total)
+        }
+
+        transformed.users = []
+
+        for (const uuid of Object.keys(data.users)) {
+          const user = data.users[uuid]
+          transformed['users'].push({
+            uuid: user.uuid,
+            full_name: user.full_name,
+            email: user.email,
+            mobile_number: user.mobile_number.international_number_for_calling,
+            country: CountriesList.filter((country) => {
+              return country.abbr === user.country
+            })[0].name
+          })
+        }
+
+        return transformed
       }
     }
   }
@@ -207,5 +252,9 @@
     .hide-not-focused-btn:not(.focus) {
       display: none;
     }
+  }
+
+  .well {
+    padding: .8rem 3rem .8rem 1.6rem
   }
 </style>
