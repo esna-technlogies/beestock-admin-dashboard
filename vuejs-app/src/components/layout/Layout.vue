@@ -48,27 +48,7 @@
           'sidebar-hidden sidebar-hidden_without-animation': this.toggleWithoutAnimation && !this.sidebarOpened
         }
       }
-    },
-
-    // methods: {
-    //   validateJwtToken: function () {
-    //     if (helpers.jwtTokenIsInvalid()) {
-    //       this.redirectToLogin()
-    //
-    //     } else if (helpers.jwtTokenIsExpired()) {
-    //       this.redirectToLogin()
-    //     }
-    //   },
-    //
-    //   redirectToLogin: function () {
-    //     this.$router.push({ name: 'Login' })
-    //   }
-    // },
-    //
-    // // Hook
-    // beforeMount () {
-    //   this.validateJwtToken();
-    // }
+    }
   }
 </script>
 

@@ -17,7 +17,7 @@
               :dataTotal="dataCount"
               :dataManager="dataManager"
               :css="css.table"
-              dataPath="users"
+              dataPath="categories"
               :appendParams="moreParams"
               :perPage="perPage"
               track-by="uuid"
@@ -27,7 +27,7 @@
 
     <div class="row no-gutters well justify-content-between">
       <div class="col">
-          <vuetable-pagination-info :class="'mt-2'" ref="paginationInfo"></vuetable-pagination-info>
+        <vuetable-pagination-info :class="'mt-2'" ref="paginationInfo"></vuetable-pagination-info>
       </div>
 
       <div class="col text-right">
@@ -44,21 +44,20 @@
 <script>
   import Vue from 'vue'
   import Vuetable from 'vuetable-2/src/components/Vuetable'
-  import LocalData from './users-datatable/data/local-data'
-  import DataTableStyles from './users-datatable/data/data-table-styles'
-  import FilterBar from './users-datatable/datatable-components/FilterBar.vue'
+  import LocalData from './data/local-data'
+  import DataTableStyles from './data/data-table-styles'
+  import FilterBar from './datatable-components/FilterBar.vue'
   import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
-  import ItemsPerPage from './users-datatable/datatable-components/ItemsPerPage.vue'
+  import ItemsPerPage from './datatable-components/ItemsPerPage.vue'
   import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
 
   import helpers from '../../helpers/index'
-  import CountriesList from './user-details/data/country-list'
 
   const defaultPerPage = 10
   const originalData = LocalData.data
 
   export default {
-    name: 'users-data-table',
+    name: 'categories-data-table',
     components: {
       Vuetable,
       FilterBar,
@@ -90,20 +89,11 @@
           return true
         }
       },
-      users: {
+      categories: {
         type: Object
-      },
-      data: {
-        type: Array
       },
       sortFunctions: {
         type: Object
-      },
-      paginationPath: {
-        type: String,
-        default () {
-          return 'pagination'
-        }
       }
     },
     data () {
@@ -126,17 +116,18 @@
     },
     methods: {
       rowClicked (payload) {
-        const userUUID = payload.uuid
-        if (userUUID) {
+        console.log('payload', payload)
+        const categoryUUID = payload.uuid
+        if (categoryUUID) {
           const direction = {
-            name: 'UserDetails',
+            name: 'CategoryDetails',
             params: {
-              uuid: userUUID
+              uuid: categoryUUID
             }
           }
           this.$router.push(direction)
         } else {
-          console.error(`ERROR: User with uuid '${userUUID}' is not found`)
+          console.error(`ERROR: Category with uuid '${categoryUUID}' is not found`)
         }
       },
       onFilterSet (filterText) {
@@ -208,18 +199,14 @@
           to: Math.min(currentPage * this.perPage, total)
         }
 
-        transformed.users = []
+        transformed.categories = []
 
-        for (const uuid of Object.keys(data.users)) {
-          const user = data.users[uuid]
-          transformed['users'].push({
-            uuid: user.uuid,
-            full_name: user.full_name,
-            email: user.email,
-            mobile_number: user.mobile_number.international_number_for_calling,
-            country: CountriesList.filter((country) => {
-              return country.abbr === user.country
-            })[0].name
+        for (const uuid of Object.keys(data.categories)) {
+          const category = data.categories[uuid]
+          transformed['categories'].push({
+            uuid: category.uuid,
+            title: category.title,
+            description: category.description
           })
         }
 

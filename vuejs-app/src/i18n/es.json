@@ -118,6 +118,7 @@
   "menu": {
     "auth": "Autenticación",
     "buttons": "Botones",
+    "categories": "",
     "charts": "Gráficos",
     "dashboard": "Dashboard",
     "extra": "Extra",
@@ -210,21 +211,44 @@
   },
   "alerts": {
     "types": {
-      "success": "",
-      "danger": "",
-      "warning": ""
+      "success": "SUCCESS",
+      "danger": "ERROR",
+      "warning": "WARNING"
     },
     "messages": {
+      "findUser": {
+        "400": "process the request",
+        "404": "",
+        "500": "due to a server side error"
+      },
       "deleteUser": {
-        "success": {
-          "200": "",
-          "204": ""
-        },
-        "error": {
-          "400": "",
-          "404": "",
-          "500": ""
-        }
+        "200": "",
+        "204": "",
+        "400": "",
+        "404": "",
+        "500": ""
+      },
+      "findCategory": {
+        "400": "",
+        "404": "",
+        "500": ""
+      },
+      "addCategory": {
+        "200": "",
+        "201": "",
+        "400": "",
+        "500": ""
+      },
+      "deleteCategory": {
+        "200": "",
+        "204": "",
+        "400": "",
+        "404": "",
+        "500": ""
+      },
+      "others": {
+        "400": "",
+        "500": ""
       }
     }
   },

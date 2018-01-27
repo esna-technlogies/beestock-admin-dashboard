@@ -24,7 +24,26 @@ export default new Router({
     {
       name: 'UserDetails',
       path: '/user-details/:uuid',
-      component: lazyLoading('user-details/UserDetails'),
+      component: lazyLoading('users/user-details/UserDetails'),
+      props: true,
+      meta: {
+        secured: true
+      }
+    },
+    {
+      name: 'NewCategory',
+      path: '/categories/new',
+      component: lazyLoading('categories/NewCategory'),
+      props: true,
+      meta: {
+        secured: true
+      }
+
+    },
+    {
+      name: 'CategoryDetails',
+      path: '/category-details/:uuid',
+      component: lazyLoading('categories/CategoryDetails'),
       props: true,
       meta: {
         secured: true

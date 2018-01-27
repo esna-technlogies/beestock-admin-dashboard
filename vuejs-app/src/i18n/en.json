@@ -126,6 +126,7 @@
   "menu": {
     "auth": "Auth",
     "buttons": "Buttons",
+    "categories": "Categories",
     "charts": "Charts",
     "dashboard": "Dashboard",
     "extra": "Extra",
@@ -187,6 +188,7 @@
     "styled": "Colors, Icons, Labels",
     "advanced": "Search & Pagination",
     "users": "Users Table",
+    "categories": "Categories Table",
     "headings": {
       "city": "City",
       "email": "Email",
@@ -217,6 +219,23 @@
       }
     }
   },
+  "categoryDetails": {
+    "back": "Back to Categories",
+    "heads": {
+      "form": "Category Details"
+    },
+    "form": {
+      "inputs": {
+        "title": "Title",
+        "description": "Description"
+      }
+    }
+  },
+  "newCategory": {
+    "heads": {
+      "form": "Add New Category"
+    }
+  },
   "alerts": {
     "types": {
       "success": "SUCCESS",
@@ -224,16 +243,39 @@
       "warning": "WARNING"
     },
     "messages": {
+      "findUser": {
+        "400": "Bad request: The system is unable to process the request",
+        "404": "No user with the provided UUID was found",
+        "500": "The system is unable to create the user due to a server side error"
+      },
       "deleteUser": {
-        "success": {
           "200": "User has been deleted successfully!",
-          "204": "User has been deleted successfully!"
-        },
-        "error": {
+          "204": "User has been deleted successfully!",
           "400": "Bad request: The system is unable to process the request",
           "404": "No user with the provided UUID was found",
           "500": "The system is unable to create the user due to a server side error"
-        }
+      },
+      "findCategory": {
+        "400": "Bad request: The system is unable to process the request",
+        "404": "No category with the provided UUID was found",
+        "500": "The system is unable to create the user due to a server side error"
+      },
+      "addCategory": {
+          "200": "Category has been added successfully!",
+          "201": "Category has been added successfully!",
+          "400": "Bad request: The system is unable to process the request",
+          "500": "The system is unable to create the user due to a server side error"
+      },
+      "deleteCategory": {
+          "200": "Category has been deleted successfully!",
+          "204": "Category has been deleted successfully!",
+          "400": "Bad request: The system is unable to process the request",
+          "404": "No category with the provided UUID was found",
+          "500": "The system is unable to create the user due to a server side error"
+      },
+      "others": {
+        "400": "Bad request: The system is unable to process the request",
+        "500": "The system is unable to create the user due to a server side error"
       }
     }
   },

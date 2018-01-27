@@ -26,7 +26,7 @@
 </template>
 
 <script>
-  import DataTable from './UsersDataTable'
+  import UsersDataTable from './UsersDataTable'
   import FieldsDef from './users-datatable/data/fields-definition'
   import Widget from '../vuestic-components/vuestic-widget/VuesticWidget'
   import VuesticAlert from '../vuestic-components/vuestic-alert/VuesticAlert'
@@ -50,15 +50,7 @@
     components: {
       Widget,
       VuesticAlert,
-      'users-data-table': DataTable
-    },
-    computed: {
-      a () {
-        this.alertType = 'success'
-      },
-      b () {
-        this.alertMessage = 'message'
-      }
+      UsersDataTable
     },
     data () {
       return {
@@ -69,8 +61,6 @@
         sortFunctions: FieldsDef.sortFunctions,
         paginationPath: ''
       }
-    },
-    created () {
     }
   }
 

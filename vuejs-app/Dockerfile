@@ -2,7 +2,7 @@ FROM node:8
 
 WORKDIR /app
 
-COPY ../../../vuejs-app/dist /app
+COPY . /app
 
 EXPOSE 8080
 

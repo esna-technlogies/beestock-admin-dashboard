@@ -17,7 +17,7 @@
       <div class="Set row no-gutters">
         <div class="header col-12">
           <div class="row justify-content-between">
-            <div class="header-text col-md-5">
+            <div class="header-text col">
               <h2>
                 <span class="mr-3">{{ userDetails.fullName }}</span>
                 <div class="d-inline-block" v-if="isActiveUser">
@@ -219,19 +219,20 @@
 </template>
 
 <script>
-import store from '../../store'
+import store from '../../../store/index'
 
 import VueGallery from 'vue-gallery'
 import Spinner from 'vue-simple-spinner'
 import Multiselect from 'vue-multiselect'
 import CountriesList from './data/country-list'
-import Modal from '../vuestic-components/vuestic-modal/VuesticModal'
-import VuesticWidget from '../vuestic-components/vuestic-widget/VuesticWidget'
-import VuesticPreLoader from '../vuestic-components/vuestic-preloader/VuesticPreLoader'
-import VuesticSimpleSelect from '../vuestic-components/vuestic-simple-select/VuesticSimpleSelect'
+import Modal from '../../vuestic-components/vuestic-modal/VuesticModal'
+import VuesticWidget from '../../vuestic-components/vuestic-widget/VuesticWidget'
+import VuesticPreLoader from '../../vuestic-components/vuestic-preloader/VuesticPreLoader'
+import VuesticSimpleSelect from '../../vuestic-components/vuestic-simple-select/VuesticSimpleSelect'
 
-import userService from '../../services/user'
-import photoService from '../../services/photo'
+import userService from '../../../services/user/index'
+import photoService from '../../../services/photo/index'
+import routerHelper from '../../../helpers/router-helper/index'
 
 const inactiveRole = store.getters.roles.inactive
 
@@ -239,7 +240,7 @@ export default {
   name: 'user-details',
   metaInfo () {
     return {
-      title: this.userDetails.fullName ? this.userDetails.fullName : 'UserDetails'
+      title: this.userDetails.fullName ? this.userDetails.fullName : 'User Details'
     }
   },
   components: {
@@ -290,27 +291,11 @@ export default {
   methods: {
     deleteUser () {
       userService.deleteByUUID(this.uuid)
-        .then((successResponse) => {
-          const status = successResponse.status
-          const alertMessage = `alerts.messages.deleteUser.success.${status}`
-          this.$router.push({
-            name: 'Users',
-            params: {
-              alertType: 'success',
-              alertMessage: alertMessage
-            }
-          })
+        .then((response) => {
+          routerHelper.deleteUserDone(response.status)
         })
-        .catch((errorResponse) => {
-          const status = errorResponse.status
-          const alertMessage = `alerts.messages.deleteUser.error.${status}`
-          this.$router.push({
-            name: 'Users',
-            params: {
-              alertType: 'danger',
-              alertMessage: alertMessage
-            }
-          })
+        .catch((error) => {
+          routerHelper.deleteUserDone(error.response.status)
         })
     },
     nameWithMobileCode ({ name, mobileCode }) {
@@ -328,15 +313,13 @@ export default {
     },
     fetchUser (uuid) {
       userService.findByUUID(uuid)
-        .then((successResponse) => {
-          this.storeUserDetails(successResponse.data.user)
+        .then((response) => {
+          this.storeUserDetails(response.data.user)
           this.setFormFields()
           this.showUserDetails()
         })
-        .catch((errorResponse) => {
-          if (errorResponse.status === 404) {
-            this.showErrorAlert()
-          }
+        .catch((error) => {
+          routerHelper.findUserFailed(error.response.status)
         })
     },
     setFormFields () {
@@ -367,13 +350,11 @@ export default {
         page: 1,
         limit: 5
       })
-      .then((successResponse) => {
-        this.setUserRecentPhotos(successResponse.data.photos)
+      .then((response) => {
+        this.setUserRecentPhotos(response.data.photos)
       })
-      .catch((errorResponse) => {
-        if (errorResponse.status === 404) {
-          console.error('NOT FOUND', errorResponse)
-        }
+      .catch((error) => {
+        console.error('ERROR', error)
       })
     },
     setUserRecentPhotos (photos) {
@@ -398,16 +379,16 @@ export default {
           this.runSavingSpinner()
 
           userService.updateByUUID(this.uuid, queryParams)
-            .then((successResponse) => {
-              this.storeUserDetails(successResponse.data.user)
+            .then((repsonse) => {
+              this.storeUserDetails(repsonse.data.user)
               this.showChangesSaved()
             })
-            .catch((errorResponse) => {
-              if (errorResponse.status === 400) {
+            .catch((error) => {
+              if (error.response.status === 400) {
                 this.showFailedToSaveChanges()
               }
             })
-        }, 500)
+        }, 1500)
       }
     },
     stopSavingSpinner () {
@@ -437,7 +418,6 @@ export default {
     },
     confirmDeleteUser () {
       this.$refs.confirmDeleteUserModal.open()
-      // this.$refs.smallModal.open()
     }
   },
 
@@ -459,10 +439,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import "../../sass/variables";
-  @import "../../sass/_variables.scss";
-  @import '../../../node_modules/bootstrap/scss/mixins/breakpoints';
-  @import '../../../node_modules/bootstrap/scss/variables';
+  @import "../../../sass/variables";
+  @import "../../../sass/variables";
+  @import '../../../../node_modules/bootstrap/scss/mixins/breakpoints';
+  @import '../../../../node_modules/bootstrap/scss/variables';
 
   .Set{
     .header {

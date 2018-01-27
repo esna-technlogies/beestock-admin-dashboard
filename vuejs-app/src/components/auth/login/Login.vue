@@ -39,7 +39,7 @@
 
   import auth from '../../../helpers/auth'
   import helpers from '../../../helpers'
-  import api from '../../../services/beeStockApi'
+  import api from '../../../services/beestock-api'
 
   export default {
     name: 'login',

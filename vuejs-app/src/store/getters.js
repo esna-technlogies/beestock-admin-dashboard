@@ -9,6 +9,7 @@ const jwtTokenName = state => state.app.cookies.jwtTokenName
 const beeStockApiBaseUrl = state => state.app.api.beeStock.baseURL
 const userSecurityEndpoint = state => state.app.api.beeStock.userSecurity
 const userAccountEndpoint = state => state.app.api.beeStock.userAccount
+const categoryEndpoint = state => state.app.api.beeStock.category
 const photoEndpoint = state => state.app.api.beeStock.photo
 const roles = state => state.app.roles
 
@@ -23,6 +24,7 @@ export {
   beeStockApiBaseUrl,
   userSecurityEndpoint,
   userAccountEndpoint,
+  categoryEndpoint,
   photoEndpoint,
   roles
 }

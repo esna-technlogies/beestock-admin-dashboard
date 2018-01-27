@@ -1,5 +1,5 @@
 import helpers from '../../helpers'
-import api from '../beeStockApi'
+import api from '../beestock-api'
 
 import store from '../../store'
 
@@ -11,7 +11,7 @@ let findAll = (queryParams) => {
     url: photoEndpoint.findAll,
     queryParams
   })
-  return returnPromiseOfResponse(api.get(url))
+  return api.get(url)
 }
 
 let findByUserUUID = (uuid, queryParams) => {
@@ -21,35 +21,10 @@ let findByUserUUID = (uuid, queryParams) => {
     queryParams
   })
 
-  return new Promise((resolve, reject) => {
-    api.get(url)
-      .then((response) => {
-        if (response.status === 200) {
-          resolve(response)
-        } else {
-          reject(response)
-        }
-      })
-      .catch((error) => {
-        reject(error.response)
-      })
-  })
+  return api.get(url)
 }
 
-let returnPromiseOfResponse = (queryMethod) => {
-  return new Promise((resolve, reject) => {
-    queryMethod.then((response) => {
-      if (response.status === 200) {
-        resolve(response)
-      } else {
-        reject(response)
-      }
-    })
-    .catch((error) => {
-      reject(error.response)
-    })
-  })
-}
+
 
 export default {
   findAll,

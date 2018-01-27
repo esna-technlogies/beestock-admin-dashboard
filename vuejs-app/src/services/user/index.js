@@ -2,7 +2,7 @@ import getFormData from 'form-data-urlencoded'
 import store from '../../store'
 
 import helpers from '../../helpers'
-import api from '../beeStockApi'
+import api from '../beestock-api'
 
 const userAccountEndpoint = store.getters.userAccountEndpoint
 
@@ -13,7 +13,7 @@ let findByUUID = (uuid) => {
       uuid: uuid
     }
   })
-  return returnPromiseOfResponse(api.get(url))
+  return api.get(url)
 }
 
 let updateByUUID = (uuid, queryParams = {}) => {
@@ -23,7 +23,7 @@ let updateByUUID = (uuid, queryParams = {}) => {
       uuid: uuid
     }
   })
-  return returnPromiseOfResponse(api.patch(url, getFormData(queryParams)))
+  return api.patch(url, getFormData(queryParams))
 }
 
 let deleteByUUID = (uuid) => {
@@ -31,24 +31,10 @@ let deleteByUUID = (uuid) => {
     url: userAccountEndpoint.delete,
     pathParams: {uuid}
   })
-  return returnPromiseOfResponse(api.delete(url))
+  return api.delete(url)
 }
 
 
-let returnPromiseOfResponse = (queryMethod) => {
-  return new Promise((resolve, reject) => {
-    queryMethod.then((response) => {
-      if ([200, 201, 202, 204].includes(response.status)) {
-        resolve(response)
-      } else {
-        reject(response)
-      }
-    })
-      .catch((error) => {
-        reject(error.response)
-      })
-  })
-}
 
 export default {
   findByUUID,

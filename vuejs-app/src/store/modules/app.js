@@ -50,6 +50,13 @@ const state = {
         findByUserUUID: '/api/photo-service/photo/filter-by/user/{uuid}',
         findKeywordsList: '/api/photo-service/photo/keywords',
         findByCategoryUUID: '/api/photo-service/photo/filter-by/category/{uuid}'
+      },
+      category: {
+        findAll: '/api/photo-service/category',
+        create: '/api/photo-service/category',
+        delete: '/api/photo-service/category/{uuid}',
+        findByUUID: '/api/photo-service/category/{uuid}',
+        findRandomPhotoByUUID: '/api/photo-service/category/random/category/{uuid}'
       }
     }
   },
