@@ -149,10 +149,12 @@
         Vue.nextTick(() => this.$refs.vuetable.refresh())
       },
       onPaginationData (paginationData) {
+        console.log('paginationData', paginationData)
         this.$refs.pagination.setPaginationData(paginationData)
         this.$refs.paginationInfo.setPaginationData(paginationData)
       },
       onChangePage (page) {
+        console.log('onChangePage', page)
         this.$refs.vuetable.changePage(page)
       },
       dataManager (sortOrder, pagination) {

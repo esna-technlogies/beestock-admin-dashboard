@@ -23,8 +23,8 @@ export default new Router({
     },
     {
       name: 'UserDetails',
-      path: '/user-details/:uuid',
-      component: lazyLoading('users/user-details/UserDetails'),
+      path: '/users/:uuid',
+      component: lazyLoading('users/UserDetails'),
       props: true,
       meta: {
         secured: true
@@ -42,8 +42,17 @@ export default new Router({
     },
     {
       name: 'CategoryDetails',
-      path: '/category-details/:uuid',
+      path: '/category/:uuid',
       component: lazyLoading('categories/CategoryDetails'),
+      props: true,
+      meta: {
+        secured: true
+      }
+    },
+    {
+      name: 'PhotoDetails',
+      path: '/photos/:uuid',
+      component: lazyLoading('photos/PhotoDetails'),
       props: true,
       meta: {
         secured: true

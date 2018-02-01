@@ -139,6 +139,7 @@
     "login": "Login",
     "maps": "Maps",
     "modals": "Modals",
+    "photos": "Photos",
     "progressBars": "Progress Bars",
     "signUp": "Sign up",
     "statistics": "Statistics",
@@ -189,6 +190,7 @@
     "advanced": "Search & Pagination",
     "users": "Users Table",
     "categories": "Categories Table",
+    "photos": "Photos",
     "headings": {
       "city": "City",
       "email": "Email",
@@ -236,6 +238,12 @@
       "form": "Add New Category"
     }
   },
+  "photoDetails": {
+    "back": "Back to Photos",
+    "heads": {
+      "details": "Photo Details"
+    }
+  },
   "alerts": {
     "types": {
       "success": "SUCCESS",
@@ -273,11 +281,23 @@
           "404": "No category with the provided UUID was found",
           "500": "The system is unable to create the user due to a server side error"
       },
+      "findPhotos": {
+        "200": "Category has been deleted successfully!",
+        "204": "Category has been deleted successfully!",
+        "400": "Bad request: The system is unable to process the request",
+        "404": "No photo with the provided UUID was found",
+        "500": "The system is unable to create the user due to a server side error"
+      },
       "others": {
         "400": "Bad request: The system is unable to process the request",
         "500": "The system is unable to create the user due to a server side error"
       }
     }
+  },
+  "actions": {
+    "delete": "Delete",
+    "add": "Add",
+    "showAll": "Show All"
   },
   "user": {
     "language": "Change Language",

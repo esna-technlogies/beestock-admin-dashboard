@@ -27,10 +27,10 @@
 
 <script>
   import UsersDataTable from './UsersDataTable'
-  import FieldsDef from './users-datatable/data/fields-definition'
+  import FieldsDef from './data/fields-definition'
   import Widget from '../vuestic-components/vuestic-widget/VuesticWidget'
   import VuesticAlert from '../vuestic-components/vuestic-alert/VuesticAlert'
-  import ItemsPerPageDef from './users-datatable/data/items-per-page-definition'
+  import ItemsPerPageDef from './data/items-per-page-definition'
 
   export default {
     name: 'Users',

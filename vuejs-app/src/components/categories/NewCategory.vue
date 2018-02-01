@@ -7,24 +7,6 @@
               <div class="col-2 text-left ma-0 pa-0">
                 <div>{{ 'newCategory.heads.form'  | translate }}</div>
               </div>
-
-              <!--<div class="text-right" v-if="newChanges">-->
-                <!--<vue-simple-spinner-->
-                  <!--:speed=".8"-->
-                  <!--:line-size="5"-->
-                  <!--:line-fg-color="'#41DF7C'" v-if="savingChanges" >-->
-                <!--</vue-simple-spinner>-->
-
-                <!--<div style="color: #41DF7C" v-else-if="changesSaved">-->
-                  <!--<span class="align-middle mr-1">SAVED</span>-->
-                  <!--<span aria-hidden="true" class="fa fa-check-circle align-middle" style="font-size: 25px;"></span>-->
-                <!--</div>-->
-
-                <!--<div style="color: #CE403E" v-else>-->
-                  <!--<span class="align-middle mr-1">FAILED</span>-->
-                  <!--<span aria-hidden="true" class="fa fa-times-circle align-middle" style="font-size: 25px;"></span>-->
-                <!--</div>-->
-              <!--</div>-->
             </div>
 
             <div class="widget-body">
@@ -41,7 +23,7 @@
                                 name="title"
                                 type="text"
                                 v-model="title"
-                                v-validate.initial="'required|min:3'"
+                                v-validate="'required|alpha_spaces|min:3'"
                                 data-vv-delay="1"
                                 required/>
                               <i class="fa fa-exclamation-triangle error-icon icon-right input-icon"></i>

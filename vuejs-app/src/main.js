@@ -5,6 +5,7 @@ import BootstrapVue from 'bootstrap-vue'
 import VeeValidate from 'vee-validate'
 import VuesticPlugin from 'src/components/vuestic-components/vuestic-components-plugin'
 import ToggleButton from 'vue-js-toggle-button'
+import Moment from 'vue-moment'
 
 
 import App from './App'
@@ -17,6 +18,7 @@ import './i18n'
 Vue.use(VuesticPlugin)
 Vue.use(BootstrapVue)
 Vue.use(ToggleButton)
+Vue.use(Moment)
 
 // NOTE: workaround for VeeValidate + vuetable-2
 Vue.use(VeeValidate, {fieldsBagName: 'formFields'})

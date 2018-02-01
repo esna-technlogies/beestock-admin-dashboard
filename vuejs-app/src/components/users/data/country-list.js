@@ -3,23 +3,23 @@
 export default [{"abbr": "AF", "name": "Afghanistan", "mobileCode": "93"}, {
   "abbr": "AX",
   "name": "Aland Islands",
-  "mobileCode": "+358-18"
+  "mobileCode": "358-18"
 }, {"abbr": "AL", "name": "Albania", "mobileCode": "355"}, {
   "abbr": "DZ",
   "name": "Algeria",
   "mobileCode": "213"
-}, {"abbr": "AS", "name": "American Samoa", "mobileCode": "+1-684"}, {
+}, {"abbr": "AS", "name": "American Samoa", "mobileCode": "1-684"}, {
   "abbr": "AD",
   "name": "Andorra",
   "mobileCode": "376"
 }, {"abbr": "AO", "name": "Angola", "mobileCode": "244"}, {
   "abbr": "AI",
   "name": "Anguilla",
-  "mobileCode": "+1-264"
-}, {"abbr": "AQ", "name": "Antarctica", "mobileCode": ""}, {
+  "mobileCode": "1-264"
+}, {"abbr": "AQ", "name": "Antarctica", "mobileCode": "672"}, {
   "abbr": "AG",
   "name": "Antigua and Barbuda",
-  "mobileCode": "+1-268"
+  "mobileCode": "1-268"
 }, {"abbr": "AR", "name": "Argentina", "mobileCode": "54"}, {
   "abbr": "AM",
   "name": "Armenia",
@@ -32,14 +32,14 @@ export default [{"abbr": "AF", "name": "Afghanistan", "mobileCode": "93"}, {
   "abbr": "AZ",
   "name": "Azerbaijan",
   "mobileCode": "994"
-}, {"abbr": "BS", "name": "Bahamas", "mobileCode": "+1-242"}, {
+}, {"abbr": "BS", "name": "Bahamas", "mobileCode": "1-242"}, {
   "abbr": "BH",
   "name": "Bahrain",
   "mobileCode": "973"
 }, {"abbr": "BD", "name": "Bangladesh", "mobileCode": "880"}, {
   "abbr": "BB",
   "name": "Barbados",
-  "mobileCode": "+1-246"
+  "mobileCode": "1-246"
 }, {"abbr": "BY", "name": "Belarus", "mobileCode": "375"}, {
   "abbr": "BE",
   "name": "Belgium",
@@ -48,26 +48,19 @@ export default [{"abbr": "AF", "name": "Afghanistan", "mobileCode": "93"}, {
   "abbr": "BJ",
   "name": "Benin",
   "mobileCode": "229"
-}, {"abbr": "BM", "name": "Bermuda", "mobileCode": "+1-441"}, {
+}, {"abbr": "BM", "name": "Bermuda", "mobileCode": "1-441"}, {
   "abbr": "BT",
   "name": "Bhutan",
   "mobileCode": "975"
-}, {"abbr": "BO", "name": "Bolivia", "mobileCode": "591"}, {
-  "abbr": "BQ",
-  "name": "Bonaire, Saint Eustatius and Saba ",
-  "mobileCode": "599"
-}, {"abbr": "BA", "name": "Bosnia and Herzegovina", "mobileCode": "387"}, {
+}, {"abbr": "BO", "name": "Bolivia", "mobileCode": "591"},
+  {"abbr": "BA", "name": "Bosnia and Herzegovina", "mobileCode": "387"}, {
   "abbr": "BW",
   "name": "Botswana",
   "mobileCode": "267"
-}, {"abbr": "BV", "name": "Bouvet Island", "mobileCode": ""}, {
-  "abbr": "BR",
-  "name": "Brazil",
-  "mobileCode": "55"
 }, {"abbr": "IO", "name": "British Indian Ocean Territory", "mobileCode": "246"}, {
   "abbr": "VG",
   "name": "British Virgin Islands",
-  "mobileCode": "+1-284"
+  "mobileCode": "1-284"
 }, {"abbr": "BN", "name": "Brunei", "mobileCode": "673"}, {
   "abbr": "BG",
   "name": "Bulgaria",
@@ -84,7 +77,7 @@ export default [{"abbr": "AF", "name": "Afghanistan", "mobileCode": "93"}, {
   "abbr": "CV",
   "name": "Cape Verde",
   "mobileCode": "238"
-}, {"abbr": "KY", "name": "Cayman Islands", "mobileCode": "+1-345"}, {
+}, {"abbr": "KY", "name": "Cayman Islands", "mobileCode": "1-345"}, {
   "abbr": "CF",
   "name": "Central African Republic",
   "mobileCode": "236"
@@ -123,8 +116,8 @@ export default [{"abbr": "AF", "name": "Afghanistan", "mobileCode": "93"}, {
 }, {"abbr": "DJ", "name": "Djibouti", "mobileCode": "253"}, {
   "abbr": "DM",
   "name": "Dominica",
-  "mobileCode": "+1-767"
-}, {"abbr": "DO", "name": "Dominican Republic", "mobileCode": "+1-809 and 1-829"}, {
+  "mobileCode": "1-767"
+}, {"abbr": "DO", "name": "Dominican Republic", "mobileCode": "1-809, 1-829, 1-849"}, {
   "abbr": "TL",
   "name": "East Timor",
   "mobileCode": "670"
@@ -156,10 +149,6 @@ export default [{"abbr": "AF", "name": "Afghanistan", "mobileCode": "93"}, {
   "abbr": "PF",
   "name": "French Polynesia",
   "mobileCode": "689"
-}, {"abbr": "TF", "name": "French Southern Territories", "mobileCode": ""}, {
-  "abbr": "GA",
-  "name": "Gabon",
-  "mobileCode": "241"
 }, {"abbr": "GM", "name": "Gambia", "mobileCode": "220"}, {
   "abbr": "GE",
   "name": "Georgia",
@@ -175,15 +164,15 @@ export default [{"abbr": "AF", "name": "Afghanistan", "mobileCode": "93"}, {
 }, {"abbr": "GL", "name": "Greenland", "mobileCode": "299"}, {
   "abbr": "GD",
   "name": "Grenada",
-  "mobileCode": "+1-473"
+  "mobileCode": "1-473"
 }, {"abbr": "GP", "name": "Guadeloupe", "mobileCode": "590"}, {
   "abbr": "GU",
   "name": "Guam",
-  "mobileCode": "+1-671"
+  "mobileCode": "1-671"
 }, {"abbr": "GT", "name": "Guatemala", "mobileCode": "502"}, {
   "abbr": "GG",
   "name": "Guernsey",
-  "mobileCode": "+44-1481"
+  "mobileCode": "44-1481"
 }, {"abbr": "GN", "name": "Guinea", "mobileCode": "224"}, {
   "abbr": "GW",
   "name": "Guinea-Bissau",
@@ -192,7 +181,7 @@ export default [{"abbr": "AF", "name": "Afghanistan", "mobileCode": "93"}, {
   "abbr": "HT",
   "name": "Haiti",
   "mobileCode": "509"
-}, {"abbr": "HM", "name": "Heard Island and McDonald Islands", "mobileCode": " "}, {
+}, {
   "abbr": "HN",
   "name": "Honduras",
   "mobileCode": "504"
@@ -212,7 +201,7 @@ export default [{"abbr": "AF", "name": "Afghanistan", "mobileCode": "93"}, {
   "abbr": "IE",
   "name": "Ireland",
   "mobileCode": "353"
-}, {"abbr": "IM", "name": "Isle of Man", "mobileCode": "+44-1624"}, {
+}, {"abbr": "IM", "name": "Isle of Man", "mobileCode": "44-1624"}, {
   "abbr": "IL",
   "name": "Israel",
   "mobileCode": "972"
@@ -220,11 +209,11 @@ export default [{"abbr": "AF", "name": "Afghanistan", "mobileCode": "93"}, {
   "abbr": "CI",
   "name": "Ivory Coast",
   "mobileCode": "225"
-}, {"abbr": "JM", "name": "Jamaica", "mobileCode": "+1-876"}, {
+}, {"abbr": "JM", "name": "Jamaica", "mobileCode": "1-876"}, {
   "abbr": "JP",
   "name": "Japan",
   "mobileCode": "81"
-}, {"abbr": "JE", "name": "Jersey", "mobileCode": "+44-1534"}, {
+}, {"abbr": "JE", "name": "Jersey", "mobileCode": "44-1534"}, {
   "abbr": "JO",
   "name": "Jordan",
   "mobileCode": "962"
@@ -235,7 +224,7 @@ export default [{"abbr": "AF", "name": "Afghanistan", "mobileCode": "93"}, {
 }, {"abbr": "KI", "name": "Kiribati", "mobileCode": "686"}, {
   "abbr": "XK",
   "name": "Kosovo",
-  "mobileCode": ""
+  "mobileCode": "383"
 }, {"abbr": "KW", "name": "Kuwait", "mobileCode": "965"}, {
   "abbr": "KG",
   "name": "Kyrgyzstan",
@@ -296,7 +285,7 @@ export default [{"abbr": "AF", "name": "Afghanistan", "mobileCode": "93"}, {
   "abbr": "ME",
   "name": "Montenegro",
   "mobileCode": "382"
-}, {"abbr": "MS", "name": "Montserrat", "mobileCode": "+1-664"}, {
+}, {"abbr": "MS", "name": "Montserrat", "mobileCode": "1-664"}, {
   "abbr": "MA",
   "name": "Morocco",
   "mobileCode": "212"
@@ -328,7 +317,7 @@ export default [{"abbr": "AF", "name": "Afghanistan", "mobileCode": "93"}, {
   "abbr": "KP",
   "name": "North Korea",
   "mobileCode": "850"
-}, {"abbr": "MP", "name": "Northern Mariana Islands", "mobileCode": "+1-670"}, {
+}, {"abbr": "MP", "name": "Northern Mariana Islands", "mobileCode": "1-670"}, {
   "abbr": "NO",
   "name": "Norway",
   "mobileCode": "47"
@@ -356,7 +345,7 @@ export default [{"abbr": "AF", "name": "Afghanistan", "mobileCode": "93"}, {
   "abbr": "PT",
   "name": "Portugal",
   "mobileCode": "351"
-}, {"abbr": "PR", "name": "Puerto Rico", "mobileCode": "+1-787 and 1-939"}, {
+}, {"abbr": "PR", "name": "Puerto Rico", "mobileCode": "1-787 and 1-939"}, {
   "abbr": "QA",
   "name": "Qatar",
   "mobileCode": "974"
@@ -375,15 +364,15 @@ export default [{"abbr": "AF", "name": "Afghanistan", "mobileCode": "93"}, {
 }, {"abbr": "SH", "name": "Saint Helena", "mobileCode": "290"}, {
   "abbr": "KN",
   "name": "Saint Kitts and Nevis",
-  "mobileCode": "+1-869"
-}, {"abbr": "LC", "name": "Saint Lucia", "mobileCode": "+1-758"}, {
+  "mobileCode": "1-869"
+}, {"abbr": "LC", "name": "Saint Lucia", "mobileCode": "1-758"}, {
   "abbr": "MF",
   "name": "Saint Martin",
   "mobileCode": "590"
 }, {"abbr": "PM", "name": "Saint Pierre and Miquelon", "mobileCode": "508"}, {
   "abbr": "VC",
   "name": "Saint Vincent and the Grenadines",
-  "mobileCode": "+1-784"
+  "mobileCode": "1-784"
 }, {"abbr": "WS", "name": "Samoa", "mobileCode": "685"}, {
   "abbr": "SM",
   "name": "San Marino",
@@ -412,11 +401,8 @@ export default [{"abbr": "AF", "name": "Afghanistan", "mobileCode": "93"}, {
   "abbr": "SO",
   "name": "Somalia",
   "mobileCode": "252"
-}, {"abbr": "ZA", "name": "South Africa", "mobileCode": "27"}, {
-  "abbr": "GS",
-  "name": "South Georgia and the South Sandwich Islands",
-  "mobileCode": ""
-}, {"abbr": "KR", "name": "South Korea", "mobileCode": "82"}, {
+}, {"abbr": "ZA", "name": "South Africa", "mobileCode": "27"},
+  {"abbr": "KR", "name": "South Korea", "mobileCode": "82"}, {
   "abbr": "SS",
   "name": "South Sudan",
   "mobileCode": "211"
@@ -452,7 +438,7 @@ export default [{"abbr": "AF", "name": "Afghanistan", "mobileCode": "93"}, {
   "abbr": "TO",
   "name": "Tonga",
   "mobileCode": "676"
-}, {"abbr": "TT", "name": "Trinidad and Tobago", "mobileCode": "+1-868"}, {
+}, {"abbr": "TT", "name": "Trinidad and Tobago", "mobileCode": "1-868"}, {
   "abbr": "TN",
   "name": "Tunisia",
   "mobileCode": "216"
@@ -460,11 +446,11 @@ export default [{"abbr": "AF", "name": "Afghanistan", "mobileCode": "93"}, {
   "abbr": "TM",
   "name": "Turkmenistan",
   "mobileCode": "993"
-}, {"abbr": "TC", "name": "Turks and Caicos Islands", "mobileCode": "+1-649"}, {
+}, {"abbr": "TC", "name": "Turks and Caicos Islands", "mobileCode": "1-649"}, {
   "abbr": "TV",
   "name": "Tuvalu",
   "mobileCode": "688"
-}, {"abbr": "VI", "name": "U.S. Virgin Islands", "mobileCode": "+1-340"}, {
+}, {"abbr": "VI", "name": "U.S. Virgin Islands", "mobileCode": "1-340"}, {
   "abbr": "UG",
   "name": "Uganda",
   "mobileCode": "256"

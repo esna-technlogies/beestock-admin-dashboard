@@ -30,6 +30,19 @@ export default {
         next: 'fa fa-angle-right',
         last: 'fa fa-angle-double-right'
       }
+    },
+    microPlus: {
+      wrapperClass: 'btn-group',
+      activeClass: 'focus',
+      disabledClass: 'disabled',
+      pageClass: 'btn btn-primary btn-microPlus hide-not-focused-btn',
+      linkClass: 'btn btn-primary btn-microPlus pagination-link-btn',
+      icons: {
+        first: 'fa fa-angle-double-left',
+        prev: 'fa fa-angle-left',
+        next: 'fa fa-angle-right',
+        last: 'fa fa-angle-double-right'
+      }
     }
   }
 }

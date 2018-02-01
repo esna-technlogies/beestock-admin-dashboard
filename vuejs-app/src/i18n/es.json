@@ -130,6 +130,7 @@
     "login": "Iniciar sesión",
     "maps": "Mapas",
     "modals": "Modals",
+    "photos": "",
     "progressBars": "Barras de Progreso",
     "signUp": "Registrar",
     "statistics": "Estadisticas",
@@ -179,6 +180,8 @@
     "styled": "Colores, Iconos, Etiquetas",
     "advanced": "Búsqueda y Paginación",
     "users": "",
+    "categories": "",
+    "photos": "",
     "headings": {
       "city": "Ciudad",
       "email": "Email",
@@ -209,17 +212,40 @@
       }
     }
   },
+  "categoryDetails": {
+    "back": "",
+    "heads": {
+      "form": ""
+    },
+    "form": {
+      "inputs": {
+        "title": "",
+        "description": ""
+      }
+    }
+  },
+  "newCategory": {
+    "heads": {
+      "form": ""
+    }
+  },
+  "photoDetails": {
+    "back": "",
+    "heads": {
+      "details": ""
+    }
+  },
   "alerts": {
     "types": {
-      "success": "SUCCESS",
-      "danger": "ERROR",
-      "warning": "WARNING"
+      "success": "",
+      "danger": "",
+      "warning": ""
     },
     "messages": {
       "findUser": {
-        "400": "process the request",
+        "400": "",
         "404": "",
-        "500": "due to a server side error"
+        "500": ""
       },
       "deleteUser": {
         "200": "",
@@ -246,11 +272,23 @@
         "404": "",
         "500": ""
       },
+      "findPhotos": {
+        "200": "",
+        "204": "",
+        "400": "",
+        "404": "",
+        "500": ""
+      },
       "others": {
         "400": "",
         "500": ""
       }
     }
+  },
+  "actions": {
+    "delete": "",
+    "add": "",
+    "showAll": ""
   },
   "user": {
     "language": "Cambiar Idioma",

@@ -30,6 +30,18 @@ let deleteUserDone = (status) => {
   pushTo('Users', alertType, alertMessage)
 }
 
+let findPhotoFailed = (status) => {
+  const alertType = [200, 201, 202, 204].includes(status) ? 'success' : 'danger'
+  const alertMessage = `alerts.messages.findPhoto.${status}`
+  pushTo('Photos', alertType, alertMessage)
+}
+
+let deletePhotoDone = (status) => {
+  const alertType = [200, 201, 202, 204].includes(status) ? 'success' : 'danger'
+  const alertMessage = `alerts.messages.deletePhoto.${status}`
+  pushTo('Photos', alertType, alertMessage)
+}
+
 let pushTo = (routeName, alertType, alertMessage) => {
   router.push({
     name: routeName,
@@ -45,5 +57,7 @@ export default {
   addCategoryDone,
   deleteCategoryDone,
   findUserFailed,
-  deleteUserDone
+  deleteUserDone,
+  findPhotoFailed,
+  deletePhotoDone
 }

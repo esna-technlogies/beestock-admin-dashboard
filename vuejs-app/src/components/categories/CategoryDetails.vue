@@ -87,7 +87,7 @@
                                 name="title"
                                 type="text"
                                 v-model="title"
-                                v-validate.initial="'required|min:3'"
+                                v-validate="'required|alpha_spaces|min:3'"
                                 data-vv-delay="1"
                                 required/>
                               <i class="fa fa-exclamation-triangle error-icon icon-right input-icon"></i>
@@ -112,7 +112,7 @@
                             id="description"
                             name="description"
                             v-model="description"
-                            v-validate="'required|alpha|min:3'"
+                            v-validate="'required|alpha_spaces|min:3'"
                             required/>
                           <i class="fa fa-exclamation-triangle error-icon icon-right input-icon"></i>
                           <label class="control-label" for="description">{{'categoryDetails.form.inputs.description' | translate}}</label>
@@ -125,91 +125,12 @@
                     </fieldset>
                   </div>
                 </div>
-
-                <!--<div class="row justify-content-center">-->
-
-                  <!--<div class="col-md-8">-->
-                    <!--<fieldset>-->
-                      <!--<div class="form-group with-icon-right">-->
-                        <!--<div class="input-group">-->
-                          <!--<input-->
-                            <!--id="email"-->
-                            <!--name="email"-->
-                            <!--v-model="email"-->
-                            <!--required/>-->
-                          <!--<i class="fa fa-exclamation-triangle error-icon icon-right input-icon"></i>-->
-                          <!--<i class="fa fa-check valid-icon icon-right input-icon"></i>-->
-                          <!--<label class="control-label" for="email">{{'categoryDetails.form.inputs.email'  | translate}} </label>-->
-                          <!--<i class="bar"></i>-->
-                        <!--</div>-->
-                      <!--</div>-->
-                    <!--</fieldset>-->
-                  <!--</div>-->
-                <!--</div>-->
-
-                <!--<div class="row justify-content-center">-->
-                  <!--<div class="col-md-4">-->
-                    <!--<fieldset>-->
-                      <!--<multiselect-->
-                        <!--v-model="country"-->
-                        <!--:options="countryList"-->
-                        <!--:custom-label="nameWithMobileCode"-->
-                        <!--:placeholder="'categoryDetails.form.selects.country' | translate"-->
-                        <!--label="name"-->
-                        <!--track-by="name">-->
-                      <!--</multiselect>-->
-                    <!--</fieldset>-->
-                  <!--</div>-->
-
-                  <!--<div class="col-md-4">-->
-                    <!--<fieldset>-->
-                      <!--<div class="form-group">-->
-                        <!--<div class="input-group">-->
-                          <!--<input id="mobileNumber" name="mobileNumber" v-model="mobileNumber" required/>-->
-                          <!--<label class="control-label" for="mobileNumber">{{'categoryDetails.form.inputs.mobileNumber.number' | translate}}</label><i class="bar"></i>-->
-                        <!--</div>-->
-                      <!--</div>-->
-                    <!--</fieldset>-->
-                  <!--</div>-->
-                <!--</div>-->
-
               </form>
             </div>
           </div>
 
         </div>
       </div>
-
-      <!--<div class="user-recent-photos row" v-if="userRecentPhotos_500.length > 0">-->
-        <!--<div class="col-md-12">-->
-          <!--<div class="widget">-->
-            <!--<div class="widget-header row no-gutters justify-content-between">-->
-              <!--<div class="col-2 text-left ma-0 pa-0">-->
-                <!--<div>{{ 'categoryDetails.heads.recentPhotos'  | translate }}</div>-->
-              <!--</div>-->
-
-              <!--<div class="col-3 text-right">-->
-                <!--<a class="btn btn-primary btn-micro">SHOW ALL</a>-->
-              <!--</div>-->
-            <!--</div>-->
-
-            <!--<div class="widget-body">-->
-              <!--<gallery :images="userRecentPhotos_1000" :index="galleryIndex" @close="galleryIndex = null"></gallery>-->
-              <!--<div class="col-md-12">-->
-                <!--<div class="row justify-content-start">-->
-                  <!--<div-->
-                    <!--class="image col-md-4"-->
-                    <!--v-for="(photo, photoIndex) in userRecentPhotos_500"-->
-                    <!--:key="photoIndex"-->
-                    <!--@click="galleryIndex = photoIndex"-->
-                    <!--:style="{ backgroundImage: 'url(' + photo + ')' }"-->
-                  <!--&gt;</div>-->
-                <!--</div>-->
-              <!--</div>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-      <!--</div>-->
     </div>
 
 
@@ -296,7 +217,6 @@ export default {
       this.isCategoryDetails = false
     },
     fetchCategory (uuid) {
-      console.log('uuid', uuid)
       categoryService.findByUUID(uuid)
         .then((response) => {
           this.storeCategoryDetails(response.data.category)
@@ -348,9 +268,9 @@ export default {
 
       if (this.isFieldUpdatedWithValidValue(fieldName)) {
         this.beforeUpdateTimers[fieldName] = setTimeout(() => {
-          this.runSavingSpinner()
-
-          this.showChangesSaved()
+          // this.runSavingSpinner()
+          //
+          // this.showChangesSaved()
 
           // categoryService.updateByUUID(this.uuid, queryParams)
           //   .then((response) => {

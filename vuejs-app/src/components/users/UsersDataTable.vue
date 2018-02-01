@@ -44,15 +44,15 @@
 <script>
   import Vue from 'vue'
   import Vuetable from 'vuetable-2/src/components/Vuetable'
-  import LocalData from './users-datatable/data/local-data'
-  import DataTableStyles from './users-datatable/data/data-table-styles'
-  import FilterBar from './users-datatable/datatable-components/FilterBar.vue'
+  import LocalData from './data/local-data'
+  import DataTableStyles from './data/data-table-styles'
+  import FilterBar from './datatable-components/FilterBar.vue'
   import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
-  import ItemsPerPage from './users-datatable/datatable-components/ItemsPerPage.vue'
+  import ItemsPerPage from './datatable-components/ItemsPerPage.vue'
   import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
 
   import helpers from '../../helpers/index'
-  import CountriesList from './user-details/data/country-list'
+  import CountriesList from './data/country-list'
 
   const defaultPerPage = 10
   const originalData = LocalData.data

@@ -22,11 +22,9 @@
                 <span class="mr-3">{{ userDetails.fullName }}</span>
                 <div class="d-inline-block" v-if="isActiveUser">
                   <span class="badge badge-pill badge-success align-top">{{ 'userDetails.heads.activeUser' | translate }}</span>
-                  <!--<b-badge pill variant="primary" :class="'align-top'">{{ 'userDetails.heads.activeUser' | translate }}</b-badge>-->
                 </div>
                 <div class="d-inline-block" v-else>
                   <span class="badge badge-pill badge-danger align-top">{{ 'userDetails.heads.inactiveUser' | translate }}</span>
-                  <!--<b-badge pill variant="danger" :class="'align-top'">{{ 'userDetails.heads.inactiveUser' | translate }}</b-badge>-->
                 </div>
               </h2>
               <router-link :to="{path: '/users'}">{{'userDetails.back' | translate}}</router-link>
@@ -93,7 +91,7 @@
                             name="firstName"
                             type="text"
                             v-model="firstName"
-                            v-validate.initial="'required|min:3'"
+                            v-validate="'required|alpha_spaces|min:3'"
                             data-vv-delay="1"
                             required/>
                           <i class="fa fa-exclamation-triangle error-icon icon-right input-icon"></i>
@@ -114,7 +112,7 @@
                             id="lastName"
                             name="lastName"
                             v-model="lastName"
-                            v-validate="'required|alpha|min:3'"
+                            v-validate="'required|alpha_spaces|min:3'"
                             required/>
                           <i class="fa fa-exclamation-triangle error-icon icon-right input-icon"></i>
                           <label class="control-label" for="lastName">{{'userDetails.form.inputs.lastName' | translate}}</label>
@@ -138,11 +136,15 @@
                             id="email"
                             name="email"
                             v-model="email"
+                            v-validate="'required|email'"
                             required/>
                           <i class="fa fa-exclamation-triangle error-icon icon-right input-icon"></i>
                           <i class="fa fa-check valid-icon icon-right input-icon"></i>
                           <label class="control-label" for="email">{{'userDetails.form.inputs.email'  | translate}} </label>
                           <i class="bar"></i>
+                          <small v-show="errors.has('email')" class="help text-danger">
+                            {{ errors.first('email') }}
+                          </small>
                         </div>
                       </div>
                     </fieldset>
@@ -167,8 +169,19 @@
                     <fieldset>
                       <div class="form-group">
                         <div class="input-group">
-                          <input id="mobileNumber" name="mobileNumber" v-model="mobileNumber" required/>
+                          <input
+                            id="mobileNumber"
+                            name="mobileNumber"
+                            v-model="mobileNumber"
+                            v-validate="'required|numeric'"
+                            required/>
+                          <i class="fa fa-exclamation-triangle error-icon icon-right input-icon"></i>
+                          <i class="fa fa-check valid-icon icon-right input-icon"></i>
                           <label class="control-label" for="mobileNumber">{{'userDetails.form.inputs.mobileNumber.number' | translate}}</label><i class="bar"></i>
+                          <i class="bar"></i>
+                          <small v-show="errors.has('mobileNumber')" class="help text-danger">
+                            {{ errors.first('mobileNumber') }}
+                          </small>
                         </div>
                       </div>
                     </fieldset>
@@ -191,7 +204,7 @@
               </div>
 
               <div class="col-3 text-right">
-                <a class="btn btn-primary btn-micro">SHOW ALL</a>
+                <a class="btn btn-primary btn-micro">{{ 'actions.showAll' | translate }}</a>
               </div>
             </div>
 
@@ -204,7 +217,7 @@
                     v-for="(photo, photoIndex) in userRecentPhotos_500"
                     :key="photoIndex"
                     @click="galleryIndex = photoIndex"
-                    :style="{ backgroundImage: 'url(' + photo + ')' }"
+                    :style="{ backgroundImage: 'url(' + photo + ')', height: '11rem' }"
                   ></div>
                 </div>
               </div>
@@ -219,20 +232,20 @@
 </template>
 
 <script>
-import store from '../../../store/index'
+import store from '../../store/index'
 
 import VueGallery from 'vue-gallery'
 import Spinner from 'vue-simple-spinner'
 import Multiselect from 'vue-multiselect'
 import CountriesList from './data/country-list'
-import Modal from '../../vuestic-components/vuestic-modal/VuesticModal'
-import VuesticWidget from '../../vuestic-components/vuestic-widget/VuesticWidget'
-import VuesticPreLoader from '../../vuestic-components/vuestic-preloader/VuesticPreLoader'
-import VuesticSimpleSelect from '../../vuestic-components/vuestic-simple-select/VuesticSimpleSelect'
+import Modal from '../vuestic-components/vuestic-modal/VuesticModal'
+import VuesticWidget from '../vuestic-components/vuestic-widget/VuesticWidget'
+import VuesticPreLoader from '../vuestic-components/vuestic-preloader/VuesticPreLoader'
+import VuesticSimpleSelect from '../vuestic-components/vuestic-simple-select/VuesticSimpleSelect'
 
-import userService from '../../../services/user/index'
-import photoService from '../../../services/photo/index'
-import routerHelper from '../../../helpers/router-helper/index'
+import userService from '../../services/user/index'
+import photoService from '../../services/photo/index'
+import routerHelper from '../../helpers/router-helper/index'
 
 const inactiveRole = store.getters.roles.inactive
 
@@ -439,10 +452,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import "../../../sass/variables";
-  @import "../../../sass/variables";
-  @import '../../../../node_modules/bootstrap/scss/mixins/breakpoints';
-  @import '../../../../node_modules/bootstrap/scss/variables';
+  @import "../../sass/variables";
+  @import "../../sass/variables";
+  @import '../../../node_modules/bootstrap/scss/mixins/breakpoints';
+  @import '../../../node_modules/bootstrap/scss/variables';
 
   .Set{
     .header {

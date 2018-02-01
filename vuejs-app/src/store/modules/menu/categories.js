@@ -8,6 +8,6 @@ export default {
   meta: {
     secured: true,
     title: 'menu.categories',
-    iconClass: 'ion ion-ios-pricetags'
+    iconClass: 'vuestic-icon vuestic-icon-tables'
   }
 }
