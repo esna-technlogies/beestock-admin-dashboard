@@ -7,7 +7,10 @@ const isLoading = state => state.app.isLoading
 
 const jwtTokenName = state => state.app.cookies.jwtTokenName
 const beeStockApiBaseUrl = state => state.app.api.beeStock.baseURL
-const userSecurityApi = state => state.app.api.beeStock.userSecurity
+const userSecurityEndpoint = state => state.app.api.beeStock.userSecurity
+const userAccountEndpoint = state => state.app.api.beeStock.userAccount
+const categoryEndpoint = state => state.app.api.beeStock.category
+const photoEndpoint = state => state.app.api.beeStock.photo
 const roles = state => state.app.roles
 
 export {
@@ -19,6 +22,9 @@ export {
   isLoading,
   jwtTokenName,
   beeStockApiBaseUrl,
-  userSecurityApi,
+  userSecurityEndpoint,
+  userAccountEndpoint,
+  categoryEndpoint,
+  photoEndpoint,
   roles
 }

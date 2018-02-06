@@ -118,6 +118,7 @@
   "menu": {
     "auth": "Autenticación",
     "buttons": "Botones",
+    "categories": "",
     "charts": "Gráficos",
     "dashboard": "Dashboard",
     "extra": "Extra",
@@ -129,12 +130,14 @@
     "login": "Iniciar sesión",
     "maps": "Mapas",
     "modals": "Modals",
+    "photos": "",
     "progressBars": "Barras de Progreso",
     "signUp": "Registrar",
     "statistics": "Estadisticas",
     "tables": "Tablas",
     "typography": "Tipografía",
-    "uiElements": "Elementos UI"
+    "uiElements": "Elementos UI",
+    "users": ""
   },
   "messages": {
     "all": "Ver todos los mensajes",
@@ -176,12 +179,116 @@
     "basic": "Tabla basica",
     "styled": "Colores, Iconos, Etiquetas",
     "advanced": "Búsqueda y Paginación",
+    "users": "",
+    "categories": "",
+    "photos": "",
     "headings": {
       "city": "Ciudad",
       "email": "Email",
       "name": "Nombre",
       "score": "Puntuación"
     }
+  },
+  "userDetails": {
+    "back": "",
+    "heads": {
+      "form": "",
+      "recentPhotos": "",
+      "activeUser": "",
+      "inactiveUser": ""
+    },
+    "form": {
+      "inputs": {
+        "firstName": "",
+        "lastName": "",
+        "email": "",
+        "mobileNumber": {
+          "code": "",
+          "number": ""
+        }
+      },
+      "selects": {
+        "country": ""
+      }
+    }
+  },
+  "categoryDetails": {
+    "back": "",
+    "heads": {
+      "form": ""
+    },
+    "form": {
+      "inputs": {
+        "title": "",
+        "description": ""
+      }
+    }
+  },
+  "newCategory": {
+    "heads": {
+      "form": ""
+    }
+  },
+  "photoDetails": {
+    "back": "",
+    "heads": {
+      "details": ""
+    }
+  },
+  "alerts": {
+    "types": {
+      "success": "",
+      "danger": "",
+      "warning": ""
+    },
+    "messages": {
+      "findUser": {
+        "400": "",
+        "404": "",
+        "500": ""
+      },
+      "deleteUser": {
+        "200": "",
+        "204": "",
+        "400": "",
+        "404": "",
+        "500": ""
+      },
+      "findCategory": {
+        "400": "",
+        "404": "",
+        "500": ""
+      },
+      "addCategory": {
+        "200": "",
+        "201": "",
+        "400": "",
+        "500": ""
+      },
+      "deleteCategory": {
+        "200": "",
+        "204": "",
+        "400": "",
+        "404": "",
+        "500": ""
+      },
+      "findPhotos": {
+        "200": "",
+        "204": "",
+        "400": "",
+        "404": "",
+        "500": ""
+      },
+      "others": {
+        "400": "",
+        "500": ""
+      }
+    }
+  },
+  "actions": {
+    "delete": "",
+    "add": "",
+    "showAll": ""
   },
   "user": {
     "language": "Cambiar Idioma",

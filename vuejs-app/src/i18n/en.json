@@ -126,6 +126,7 @@
   "menu": {
     "auth": "Auth",
     "buttons": "Buttons",
+    "categories": "Categories",
     "charts": "Charts",
     "dashboard": "Dashboard",
     "extra": "Extra",
@@ -138,12 +139,14 @@
     "login": "Login",
     "maps": "Maps",
     "modals": "Modals",
+    "photos": "Photos",
     "progressBars": "Progress Bars",
     "signUp": "Sign up",
     "statistics": "Statistics",
     "tables": "Tables",
     "typography": "Typography",
-    "uiElements": "UI Elements"
+    "uiElements": "UI Elements",
+    "users": "Users"
   },
   "messages": {
     "all": "See all messages",
@@ -185,12 +188,116 @@
     "basic": "Basic Table",
     "styled": "Colors, Icons, Labels",
     "advanced": "Search & Pagination",
+    "users": "Users Table",
+    "categories": "Categories Table",
+    "photos": "Photos",
     "headings": {
       "city": "City",
       "email": "Email",
       "name": "Name",
       "score": "Score"
     }
+  },
+  "userDetails": {
+    "back": "Back to Users",
+    "heads": {
+      "form": "User Details",
+      "recentPhotos": "Recent Photos",
+      "activeUser": "ACTIVE",
+      "inactiveUser": "INACTIVE"
+    },
+    "form": {
+      "inputs": {
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "email": "Email Address",
+        "mobileNumber": {
+          "code": "Mobile Code",
+          "number": "Mobile Number"
+        }
+      },
+      "selects": {
+        "country": "Country - [Mobile Code]"
+      }
+    }
+  },
+  "categoryDetails": {
+    "back": "Back to Categories",
+    "heads": {
+      "form": "Category Details"
+    },
+    "form": {
+      "inputs": {
+        "title": "Title",
+        "description": "Description"
+      }
+    }
+  },
+  "newCategory": {
+    "heads": {
+      "form": "Add New Category"
+    }
+  },
+  "photoDetails": {
+    "back": "Back to Photos",
+    "heads": {
+      "details": "Photo Details"
+    }
+  },
+  "alerts": {
+    "types": {
+      "success": "SUCCESS",
+      "danger": "ERROR",
+      "warning": "WARNING"
+    },
+    "messages": {
+      "findUser": {
+        "400": "Bad request: The system is unable to process the request",
+        "404": "No user with the provided UUID was found",
+        "500": "The system is unable to create the user due to a server side error"
+      },
+      "deleteUser": {
+          "200": "User has been deleted successfully!",
+          "204": "User has been deleted successfully!",
+          "400": "Bad request: The system is unable to process the request",
+          "404": "No user with the provided UUID was found",
+          "500": "The system is unable to create the user due to a server side error"
+      },
+      "findCategory": {
+        "400": "Bad request: The system is unable to process the request",
+        "404": "No category with the provided UUID was found",
+        "500": "The system is unable to create the user due to a server side error"
+      },
+      "addCategory": {
+          "200": "Category has been added successfully!",
+          "201": "Category has been added successfully!",
+          "400": "Bad request: The system is unable to process the request",
+          "500": "The system is unable to create the user due to a server side error"
+      },
+      "deleteCategory": {
+          "200": "Category has been deleted successfully!",
+          "204": "Category has been deleted successfully!",
+          "400": "Bad request: The system is unable to process the request",
+          "404": "No category with the provided UUID was found",
+          "500": "The system is unable to create the user due to a server side error"
+      },
+      "findPhotos": {
+        "200": "Category has been deleted successfully!",
+        "204": "Category has been deleted successfully!",
+        "400": "Bad request: The system is unable to process the request",
+        "404": "No photo with the provided UUID was found",
+        "500": "The system is unable to create the user due to a server side error"
+      },
+      "others": {
+        "400": "Bad request: The system is unable to process the request",
+        "500": "The system is unable to create the user due to a server side error"
+      }
+    }
+  },
+  "actions": {
+    "delete": "Delete",
+    "add": "Add",
+    "showAll": "Show All"
   },
   "user": {
     "language": "Change Language",

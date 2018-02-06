@@ -1,7 +1,5 @@
 <template>
   <div class="dashboard">
-    
-
     <dashboard-info-widgets></dashboard-info-widgets>
 
     <vuestic-widget class="no-padding no-v-padding">
@@ -39,6 +37,10 @@
 
   export default {
     name: 'dashboard',
+    metaInfo: {
+      title: 'Admin Dashboard',
+      titleTemplate: null
+    },
     components: {
       DataVisualisationTab,
       VuesticWidget,

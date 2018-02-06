@@ -6,6 +6,7 @@ export default {
   component: lazyLoading('extra/Extra'),
   meta: {
     default: false,
+    secured: true,
     title: 'menu.extra',
     iconClass: 'vuestic-icon vuestic-icon-extras',
     expanded: false

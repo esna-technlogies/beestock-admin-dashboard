@@ -4,6 +4,7 @@ export default {
   name: 'ui',
   meta: {
     expanded: false,
+    secured: true,
     title: 'menu.uiElements',
     iconClass: 'vuestic-icon vuestic-icon-ui-elements'
   },
@@ -13,6 +14,7 @@ export default {
       path: '/ui/typography',
       component: lazyLoading('ui/typography/Typography'),
       meta: {
+        secured: true,
         title: 'menu.typography'
       }
     },
@@ -21,6 +23,7 @@ export default {
       path: '/ui/buttons',
       component: lazyLoading('ui/buttons/Buttons'),
       meta: {
+        secured: true,
         title: 'menu.buttons'
       }
     },
@@ -28,6 +31,7 @@ export default {
       path: '/ui/icons',
       component: lazyLoading('ui/icons/Icons'),
       meta: {
+        secured: true,
         title: 'menu.icons'
       },
       children: [
@@ -35,6 +39,7 @@ export default {
           path: '', // Default route
           component: lazyLoading('ui/icons/SetsList'),
           meta: {
+            secured: true,
             title: 'menu.icons'
           }
         },
@@ -43,6 +48,7 @@ export default {
           component: lazyLoading('ui/icons/Set'),
           props: true,
           meta: {
+            secured: true,
             title: 'Set'
           }
         }
@@ -53,6 +59,7 @@ export default {
       path: '/ui/spinners',
       component: lazyLoading('ui/spinners/Spinners'),
       meta: {
+        secured: true,
         title: 'menu.spinners'
       }
     },
@@ -61,6 +68,7 @@ export default {
       path: '/ui/grid',
       component: lazyLoading('ui/grid/Grid'),
       meta: {
+        secured: true,
         title: 'menu.grid'
       }
     },
@@ -69,6 +77,7 @@ export default {
       path: '/ui/modals',
       component: lazyLoading('ui/modals/Modals'),
       meta: {
+        secured: true,
         title: 'menu.modals'
       }
     }
