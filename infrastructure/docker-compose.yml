@@ -2,4 +2,4 @@ version: "2.2"
 services:
   admin_dashboard:
     build: ../vuejs-app/
-    image: beestock-admin-dashboard
+    image: dev-beestock-admin-dashboard
