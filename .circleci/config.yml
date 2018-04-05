@@ -2,46 +2,121 @@
 #
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
 version: 2  # This indicates a circleci version
 jobs:
   build:
+    working_directory: ~/app
 
-    # This indicates the docker image used will be the one built with node.js v8.9.1 from circleci repo
     docker:
-      - image: circleci/node:8.9.1
-
-    # This indicates the working directory for the following steps
-    working_directory: ~/beestock-admin-dashboard
+      - image: docker:18.03.0-ce-git
 
     steps:
-      # This would checkout the project from github to the current working directory '.'
       - checkout
+      - setup_remote_docker
 
       - run:
-          name: Install Project Dependencies
-          command: npm install
-          working_directory: ./vuejs-app
+          name: Install dependencies
+          command: |
+            apk add --no-cache py-pip
+            pip install awscli==1.14.30
 
       - run:
-          name: Build The Project For Production
-          command: npm run build
-          working_directory: ./vuejs-app
+          name: Build Docker image
+          command: docker-compose -f infrastructure/docker-compose.yml build
+          working_directory: .
 
-      # We need here to add 'admin.beesstock.com' to known_hosts so the OS can communicate with it
-      - run:
-         name: Clear ~/.ssh/known_hosts and Add host admin.beesstock.com to it
-         command: ssh-keyscan admin.beesstock.com > ~/.ssh/known_hosts
-
-      # A build is done under ./vuejs-app/dist, so copy it remotely on 'admin.beesstock.com' server
       - deploy:
-          name: Deploy dist/ to remote 'admin.beestock.com' instance
-          command: scp -rp dist/ ubuntu@admin.beesstock.com:~/project/
-          working_directory: ./vuejs-app
+          name: Push Docker Image to AWS ECR
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "immutable-infrastructure" ] || [ "${CIRCLE_BRANCH}" == "shendy-develop" ]; then
+              AWS_REGION='us-east-2'
+              CLUSTER='dev-beestock'
+              TASK='dev-admin-dashboard'
+              FAMILY='dev-admin-dashboard'
+              SERVICE='admin-dashboard-service'
+              CONTAINER_NAME='dev-admin-dashboard'
+              DOCKER_IMAGE='dev-beestock-admin-dashboard'
 
-      # Using 'forever' command:
-      # . Restart the application
-      # . Specify options for saving different types of logs (forever, output, error)
-      # . Specific '-a' for appending to current logs
-      - run:
-          name: Restart The Application
-          command: ssh ubuntu@admin.beesstock.com 'forever restart -a -l ~/project/logs/forever.log -o ~/project/logs/out.log -e ~/project/logs/error.log ~/project/server.js'
+              aws configure set region $AWS_REGION
+              $(aws ecr get-login --no-include-email --region $AWS_REGION)
+
+              docker tag $DOCKER_IMAGE $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$DOCKER_IMAGE:latest
+              docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$DOCKER_IMAGE:latest
+
+              docker tag $DOCKER_IMAGE $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$DOCKER_IMAGE:$CIRCLE_SHA1
+              docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$DOCKER_IMAGE:$CIRCLE_SHA1
+
+              task_template='[
+                {
+                  "name": "%s",
+                  "image": "%s.dkr.ecr.%s.amazonaws.com/%s:latest",
+                  "essential": true,
+                  "cpu": 10,
+                  "memory": 300,
+                  "portMappings": [
+                    {
+                      "containerPort": 8080,
+                      "hostPort": 8080
+                    }
+                  ]
+                }
+              ]'
+
+              task_def=$(printf "$task_template" $CONTAINER_NAME $AWS_ACCOUNT_ID $AWS_REGION $DOCKER_IMAGE)
+
+              json=$(aws ecs register-task-definition --container-definitions "$task_def" --family "$FAMILY")
+
+              revision=$(echo "$json" | grep -o '"revision": [0-9]*' | grep -Eo '[0-9]+')
+
+              aws ecs update-service --force-new-deployment --cluster "$CLUSTER" --service "$SERVICE" --task-definition "$TASK":"$revision"
+
+              return 0
+            fi
+
+#version: 2  # This indicates a circleci version
+#jobs:
+#  build:
+#
+#    # This indicates the docker image used will be the one built with node.js v8.9.1 from circleci repo
+#    docker:
+#      - image: circleci/node:8.9.1
+#
+#    # This indicates the working directory for the following steps
+#    working_directory: ~/beestock-admin-dashboard
+#
+#    steps:
+#      # This would checkout the project from github to the current working directory '.'
+#      - checkout
+#
+#      - run:
+#          name: Install Project Dependencies
+#          command: npm install
+#          working_directory: ./vuejs-app
+#
+#      - run:
+#          name: Build The Project For Production
+#          command: npm run build
+#          working_directory: ./vuejs-app
+#
+#      # We need here to add 'admin.beesstock.com' to known_hosts so the OS can communicate with it
+#      - run:
+#         name: Clear ~/.ssh/known_hosts and Add host admin.beesstock.com to it
+#         command: ssh-keyscan admin.beesstock.com > ~/.ssh/known_hosts
+#
+#      # A build is done under ./vuejs-app/dist, so copy it remotely on 'admin.beesstock.com' server
+#      - deploy:
+#          name: Deploy dist/ to remote 'admin.beestock.com' instance
+#          command: scp -rp dist/ ubuntu@admin.beesstock.com:~/project/
+#          working_directory: ./vuejs-app
+#
+#      # Using 'forever' command:
+#      # . Restart the application
+#      # . Specify options for saving different types of logs (forever, output, error)
+#      # . Specific '-a' for appending to current logs
+#      - run:
+#          name: Restart The Application
+#          command: ssh ubuntu@admin.beesstock.com 'forever restart -a -l ~/project/logs/forever.log -o ~/project/logs/out.log -e ~/project/logs/error.log ~/project/server.js'
