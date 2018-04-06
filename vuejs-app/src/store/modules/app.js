@@ -1,5 +1,11 @@
 import * as types from '../mutation-types'
 
+import api from '../../api/beestock'
+import utils from '../../services/utils'
+import {userService, authService} from '../../services'
+
+import JwtDecode from 'jwt-decode'
+
 const state = {
   sidebar: {
     opened: false,
@@ -64,7 +70,9 @@ const state = {
     active: 'ROLE_ACTIVE_USER',
     inactive: 'ROLE_INACTIVE',
     admin: 'ROLE_ACTIVE_USER'
-  }
+  },
+  isPageLoading: true,
+  isAuthenticatedUser: false
 }
 
 const mutations = {
@@ -81,6 +89,9 @@ const mutations = {
   },
   setLoading (state, isLoading) {
     state.isLoading = isLoading
+  },
+  setAuthenticated (state, isAuthenticated) {
+    state.isAuthenticatedUser = isAuthenticated
   }
 }
 
@@ -93,6 +104,53 @@ const actions = {
   },
   isToggleWithoutAnimation ({ commit }, value) {
     commit(types.TOGGLE_WITHOUT_ANIMATION, value)
+  },
+  async doLogin ({ commit, dispatch }, credentials) {
+    await authService.login(credentials)
+      .then(response => {
+        const inactiveUser = JwtDecode(response.data.token).roles.some(role => role === 'ROLE_INACTIVE')
+        if (inactiveUser) { throw new Error("You don't have permission.") }
+
+        return response.data.token
+      })
+      .then(token => {
+        dispatch('storeJwtToken', token)
+        api.setAuthorizationHeader(token)
+      })
+  },
+  async fetchUserDetails ({ commit, dispatch }) {
+    const token = utils.getCurrentUserJwtToken()
+
+    const decodedToken = JwtDecode(token)
+
+    await userService.findByUUID(decodedToken.userId)
+      .then(response => response.data.user)
+      .then(user => {
+        return {
+          uuid: user.uuid,
+          firstName: user.first_name,
+          lastName: user.last_name,
+          email: user.email,
+          roles: user.access_info.roles.join(','),
+          expireDate: decodedToken.exp
+        }
+      })
+      .then(userDetails => {
+        return dispatch('storeUserDetails', userDetails)
+      })
+      .then(() => {
+        return commit('setAuthenticated', true)
+      })
+  },
+  doLogout ({ commit }) {
+    commit('setAuthenticated', false)
+    utils.clearAuthStorage()
+  },
+  storeUserDetails ({ commit }, userDetails) {
+    utils.storeCurrentUserDetails(userDetails)
+  },
+  storeJwtToken ({ commit }, token) {
+    utils.storeCurrentUserJwtToken(token)
   }
 }
 

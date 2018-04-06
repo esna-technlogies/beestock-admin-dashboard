@@ -245,7 +245,7 @@ import VuesticSimpleSelect from '../vuestic-components/vuestic-simple-select/Vue
 
 import userService from '../../services/user/index'
 import photoService from '../../services/photo/index'
-import routerHelper from '../../helpers/router-helper/index'
+import routerHelper from '../../helpers/router/index'
 
 const inactiveRole = store.getters.roles.inactive
 

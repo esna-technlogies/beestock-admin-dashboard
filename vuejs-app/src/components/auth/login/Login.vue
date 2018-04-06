@@ -2,16 +2,9 @@
   <div class="login">
     <h2>{{'auth.welcome' | translate}}</h2>
 
-    <div class="row" v-if="showBadCredentialsAlert">
-      <div class="col-md-12">
-        <vuestic-alert type="danger" :withCloseBtn="true">
-          {{'extra.alerts.badCredentials' | translate}}
-          <i class="fa fa-close alert-close" @click="showBadCredentialsAlert=false"></i>
-        </vuestic-alert>
-      </div>
-    </div>
+    <form-error-alert v-show="isErrorAlert" :alert-message="errorAlertMessage"/>
 
-    <form name="login" v-on:submit.prevent="doLogin">
+    <form name="login" @submit.prevent="doLogin">
       <div class="form-group">
         <div class="input-group">
           <input type="text" id="userName" v-model="userName" required="required" autofocus/>
@@ -25,21 +18,20 @@
         </div>
       </div>
       <div class="d-flex flex-column flex-lg-row align-items-center justify-content-center down-container">
-        <button class="btn btn-primary" type="submit">
+        <button class="btn btn-primary btn-micro btn-block rounded-0">
           {{'auth.login' | translate}}
         </button>
       </div>
     </form>
+
+    <basic-loader v-show="isLoading" />
   </div>
 </template>
 
 <script>
-  import store from '../../../store'
   import VuesticAlert from '../../../components/vuestic-components/vuestic-alert/VuesticAlert'
-
-  import auth from '../../../helpers/auth'
-  import helpers from '../../../helpers'
-  import api from '../../../services/beestock-api'
+  import FormErrorAlert from '../../alerts/FormErrorAlert'
+  import BasicLoader from '../../loaders/BasicLoader'
 
   export default {
     name: 'login',
@@ -47,61 +39,76 @@
       title: 'Login'
     },
     components: {
-      VuesticAlert
+      BasicLoader,
+      VuesticAlert,
+      FormErrorAlert
     },
     data () {
       return {
         userName: '',
         password: '',
         hidden: true,
-        showBadCredentialsAlert: false
+        isLoading: false,
+        showBadCredentialsAlert: false,
+        isErrorAlert: false,
+        errorAlertMessage: ''
       }
     },
+    computed: {
+      sendTo () {
+        const { path } = this.$route.query
+        if (path !== undefined) return { path }
 
-    methods: {
-      doLogin: function () {
-        api.post(store.getters.userSecurityEndpoint.login, {
-          userName: this.userName,
-          password: this.password
-        })
-        .then(response => {
-          if (response.status === 200) {
-            let token = response.data.token
-            let roles = helpers.getUserRolesFromJwtToken(token)
-
-            if (this.isAdmin(roles)) {
-              helpers.setJwtTokenInCookie(token)
-              this.$router.replace(this.redirectTo())
-            }
-          }
-        })
-        .catch(error => {
-          let responseStatus = error.response.status
-          if (responseStatus === 401) {
-            this.showBadCredentialsAlert = true
-          }
-        })
-      },
-
-      isAdmin: function (roles) {
-        for (let role of roles) {
-          if (role === store.getters.roles.admin) {
-            return true
-          }
-        }
-        return false
-      },
-      redirectTo () {
-        const { path, name } = this.$route.query
-        if (path) return { path: path }
-        if (name) return { name: name }
         return { name: 'Dashboard' }
       }
     },
+    methods: {
+      async doLogin () {
+        // if (!await this.$validator.validateAll()) return
 
+        this.clearErrorAlert()
+        this.startLoading()
+
+        const queryParams = {
+          userName: this.userName,
+          password: this.password
+        }
+
+        try {
+          await this.$store.dispatch('doLogin', queryParams)
+          await this.$store.dispatch('fetchUserDetails')
+          this.$router.push(this.sendTo)
+        } catch (error) {
+          this.handleFailedLogin(error)
+        } finally {
+          this.stopLoading()
+        }
+      },
+      handleFailedLogin (error) {
+        if (!error.response) {
+          this.setErrorAlert(error.message)
+        } else {
+          this.setErrorAlert(error.response.data.message)
+        }
+      },
+      startLoading () {
+        this.isLoading = true
+      },
+      stopLoading () {
+        this.isLoading = false
+      },
+      clearErrorAlert () {
+        this.isErrorAlert = false
+        this.errorAlertMessage = ''
+      },
+      setErrorAlert (message = 'Default Error Message') {
+        this.isErrorAlert = true
+        this.errorAlertMessage = message
+      }
+    },
     created () {
-      if (auth.isAuthenticated()) {
-        this.$router.replace(this.redirectTo())
+      if (this.$store.getters.isAuthenticatedUser) {
+        return this.$router.push({ name: this.sendTo.name })
       }
     }
   }

@@ -67,7 +67,7 @@
             <div class="dropdown-item plain-link-item">
               <a class="plain-link" href="#" @click.prevent="showLanguageModal">{{'user.language' | translate}}</a>
             </div>
-            <div class="dropdown-item plain-link-item" v-on:click="logout">
+            <div class="dropdown-item plain-link-item" @click="doLogout">
               <a class="plain-link" href="#">{{'user.logout' | translate}}</a>
             </div>
           </div>
@@ -98,7 +98,9 @@
   import Dropdown from 'directives/Dropdown'
   import Modal from '../../vuestic-components/vuestic-modal/VuesticModal'
 
-  import helpers from '../../../helpers'
+  // import helpers from '../../../helpers'
+
+  import {routerHelper} from '../../../helpers'
 
   export default {
     name: 'navbar',
@@ -132,9 +134,12 @@
         Vue.i18n.set(locale)
         this.$refs.languageModal.cancel()
       },
-      logout: function () {
-        helpers.removeJwtToken();
-        this.$router.push({ name: 'Login' })
+      doLogout () {
+        if (!this.$store.getters.isAuthenticatedUser) { return this.$router.replace({ name: 'Dashboard' }) }
+
+        this.$store.dispatch('doLogout')
+
+        routerHelper.logoutDone()
       }
     }
   }

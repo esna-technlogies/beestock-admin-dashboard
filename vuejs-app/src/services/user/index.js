@@ -1,13 +1,11 @@
-import getFormData from 'form-data-urlencoded'
-import store from '../../store'
+import getFormData from 'form-urlencoded'
 
-import helpers from '../../helpers'
-import api from '../beestock-api'
-
-const userAccountEndpoint = store.getters.userAccountEndpoint
+import api from '../../api/beestock'
+import {urlHelper} from '../../helpers'
+import { userAccount as userAccountEndpoint } from '../../api/beestock/endpoints'
 
 let findByUUID = (uuid) => {
-  const url = helpers.reformatUrl({
+  const url = urlHelper.reformatUrl({
     url: userAccountEndpoint.findByUUID,
     pathParams: {
       uuid: uuid
@@ -17,7 +15,7 @@ let findByUUID = (uuid) => {
 }
 
 let updateByUUID = (uuid, queryParams = {}) => {
-  const url = helpers.reformatUrl({
+  const url = urlHelper.reformatUrl({
     url: userAccountEndpoint.partialUpdate,
     pathParams: {
       uuid: uuid
@@ -27,7 +25,7 @@ let updateByUUID = (uuid, queryParams = {}) => {
 }
 
 let deleteByUUID = (uuid) => {
-  const url = helpers.reformatUrl({
+  const url = urlHelper.reformatUrl({
     url: userAccountEndpoint.delete,
     pathParams: {uuid}
   })

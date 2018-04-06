@@ -1,13 +1,11 @@
-import getFormData from 'form-data-urlencoded'
-import store from '../../store'
+import getFormData from 'form-urlencoded'
 
-import helpers from '../../helpers'
+import {urlHelper} from '../../helpers'
 import api from '../beestock-api'
-
-const categoryEndpoint = store.getters.categoryEndpoint
+import { category as categoryEndpoint } from '../../api/beestock/endpoints'
 
 let findByUUID = (uuid) => {
-  const url = helpers.reformatUrl({
+  const url = urlHelper.reformatUrl({
     url: categoryEndpoint.findByUUID,
     pathParams: {
       uuid
@@ -22,7 +20,7 @@ let create = (queryParams = {}) => {
 }
 
 let updateByUUID = (uuid, queryParams = {}) => {  // To be implemented later
-  // const url = helpers.reformatUrl({
+  // const url = urlHelper.reformatUrl({
   //   url: "",
   //   pathParams: {uuid}
   // })
@@ -30,7 +28,7 @@ let updateByUUID = (uuid, queryParams = {}) => {  // To be implemented later
 }
 
 let deleteByUUID = (uuid) => {
-  const url = helpers.reformatUrl({
+  const url = urlHelper.reformatUrl({
     url: categoryEndpoint.delete,
     pathParams: {
       uuid

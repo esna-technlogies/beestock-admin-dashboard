@@ -51,7 +51,7 @@
   import ItemsPerPage from './datatable-components/ItemsPerPage.vue'
   import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
 
-  import helpers from '../../helpers/index'
+  // import helpers from '../../helpers/index'
   import CountriesList from './data/country-list'
 
   const defaultPerPage = 10
@@ -119,7 +119,8 @@
         css: DataTableStyles,
         httpOptions: {
           headers: {
-            'Authorization': 'Bearer ' + helpers.getTokenValueFromCookie()
+            // 'Authorization': 'Bearer ' + helpers.getTokenValueFromCookie()
+            'Authorization': 'Bearer ' + ''
           }
         }
       }

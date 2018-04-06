@@ -1,15 +1,12 @@
-import helpers from '../../helpers'
-import api from '../beestock-api'
+import api from '../../api/beestock'
 import userService from '../../services/user'
 import categoryService from '../../services/category'
-
-import store from '../../store'
-
-const photoEndpoint = store.getters.photoEndpoint
+import {urlHelper} from '../../helpers'
+import { photo as photoEndpoint } from '../../api/beestock/endpoints'
 
 
 let findAll = (queryParams) => {
-  const url = helpers.reformatUrl({
+  const url = urlHelper.reformatUrl({
     url: photoEndpoint.findAll,
     queryParams
   })
@@ -17,7 +14,7 @@ let findAll = (queryParams) => {
 }
 
 let findByUUID = (uuid) => {
-  const url = helpers.reformatUrl({
+  const url = urlHelper.reformatUrl({
     url: photoEndpoint.findByUUID,
     pathParams: { uuid }
   })
@@ -25,7 +22,7 @@ let findByUUID = (uuid) => {
 }
 
 let deleteByUUID = (uuid) => {
-  const url = helpers.reformatUrl({
+  const url = urlHelper.reformatUrl({
     url: photoEndpoint.deleteByUUID,
     pathParams: { uuid }
   })
@@ -33,7 +30,7 @@ let deleteByUUID = (uuid) => {
 }
 
 let findByUserUUID = (uuid, queryParams) => {
-  const url = helpers.reformatUrl({
+  const url = urlHelper.reformatUrl({
     url: photoEndpoint.findByUserUUID,
     pathParams: { uuid },
     queryParams

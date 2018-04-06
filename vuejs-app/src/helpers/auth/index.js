@@ -1,4 +1,5 @@
-import helpers from '../../helpers'
+/*
+import {} from '../../helpers'
 
 let isAuthenticated = () => {
   return helpers.getTokenValueFromCookie()
@@ -12,3 +13,4 @@ export default {
   isAuthenticated,
   isTokenValid
 }
+*/
