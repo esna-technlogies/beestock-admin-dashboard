@@ -25,7 +25,7 @@ jobs:
       # This builds docker image from the project using Dockerfile under ./vuejs-app/Dockerfile, tagging it with the name 'dev-beestock-webapp'
       - run:
           name: Build Docker image
-          command: docker build -t dev-beestock-webapp .
+          command: docker build -t dev-beestock-admin-dashboard .
           working_directory: ./vuejs-app
 
       # This will start the process of deployment on AWS ECS as following:
@@ -40,11 +40,11 @@ jobs:
           command: |
             AWS_REGION='us-west-2'
             CLUSTER='dev-beestock'
-            TASK='dev-webapp'
-            FAMILY='dev-webapp'
-            SERVICE='webapp-service'
-            CONTAINER_NAME='dev-webapp'
-            DOCKER_IMAGE='dev-beestock-webapp'
+            TASK='dev-admin-dashboard'
+            FAMILY='dev-admin-dashboard'
+            SERVICE='admin-dashboard-service'
+            CONTAINER_NAME='dev-admin-dashboard'
+            DOCKER_IMAGE='dev-beestock-admin-dashboard'
 
             aws configure set region $AWS_REGION
             $(aws ecr get-login --no-include-email --region $AWS_REGION)
