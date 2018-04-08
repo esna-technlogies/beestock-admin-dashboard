@@ -1,7 +1,7 @@
 import getFormData from 'form-urlencoded'
 
 import {urlHelper} from '../../helpers'
-import api from '../beestock-api'
+import api from '../../api/beestock'
 import { category as categoryEndpoint } from '../../api/beestock/endpoints'
 
 let findByUUID = (uuid) => {

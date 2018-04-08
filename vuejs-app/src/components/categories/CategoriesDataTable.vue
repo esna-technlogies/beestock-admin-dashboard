@@ -22,8 +22,8 @@
               :perPage="perPage"
               track-by="uuid"
               @vuetable:row-clicked="rowClicked"
-              @vuetable:pagination-data="onPaginationData">
-    </vuetable>
+              @vuetable:pagination-data="onPaginationData"
+              @vuetable:load-success="tableDataLoaded" />
 
     <div class="row no-gutters well justify-content-between">
       <div class="col">
@@ -38,27 +38,32 @@
         </vuetable-pagination>
       </div>
     </div>
+
+    <basic-loader v-show="isLoading" />
   </div>
 </template>
 
 <script>
   import Vue from 'vue'
+  import BasicLoader from '../loaders/BasicLoader'
   import Vuetable from 'vuetable-2/src/components/Vuetable'
-  import LocalData from './data/local-data'
-  import DataTableStyles from './data/data-table-styles'
   import FilterBar from './datatable-components/FilterBar.vue'
   import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
-  import ItemsPerPage from './datatable-components/ItemsPerPage.vue'
   import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
 
-  // import helpers from '../../helpers/index'
-  //
+  import LocalData from './data/local-data'
+  import DataTableStyles from './data/data-table-styles'
+  import ItemsPerPage from './datatable-components/ItemsPerPage.vue'
+
+  import utils from '../../services/utils'
+
   const defaultPerPage = 10
   const originalData = LocalData.data
 
   export default {
     name: 'categories-data-table',
     components: {
+      BasicLoader,
       Vuetable,
       FilterBar,
       ItemsPerPage,
@@ -98,26 +103,25 @@
     },
     data () {
       return {
+        isLoading: true,
         rows: originalData,
         tableData: LocalData,
         perPage: defaultPerPage,
         colorClasses: {},
+        dataCount: 0,
+        css: DataTableStyles,
         moreParams: {
           limit: defaultPerPage
         },
-        dataCount: 0,
-        css: DataTableStyles,
         httpOptions: {
           headers: {
-            // 'Authorization': 'Bearer ' + helpers.getTokenValueFromCookie()
-            'Authorization': 'Bearer ' + ''
+            'Authorization': 'Bearer ' + utils.getCurrentUserJwtToken()
           }
         }
       }
     },
     methods: {
       rowClicked (payload) {
-        console.log('payload', payload)
         const categoryUUID = payload.uuid
         if (categoryUUID) {
           const direction = {
@@ -150,12 +154,11 @@
         Vue.nextTick(() => this.$refs.vuetable.refresh())
       },
       onPaginationData (paginationData) {
-        console.log('paginationData', paginationData)
         this.$refs.pagination.setPaginationData(paginationData)
         this.$refs.paginationInfo.setPaginationData(paginationData)
       },
       onChangePage (page) {
-        console.log('onChangePage', page)
+        this.startLoading()
         this.$refs.vuetable.changePage(page)
       },
       dataManager (sortOrder, pagination) {
@@ -214,7 +217,19 @@
         }
 
         return transformed
+      },
+      tableDataLoaded () {
+        this.stopLoading()
+      },
+      startLoading () {
+        this.isLoading = true
+      },
+      stopLoading () {
+        this.isLoading = false
       }
+    },
+    created () {
+      this.startLoading()
     }
   }
 </script>

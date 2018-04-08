@@ -1,18 +1,21 @@
 import axios from 'axios/index'
-import { beestockApiConf } from '../../config'
-// import utils from '../../services/utils'
+import { beestockApi as apiConfig } from '../../config'
+import utils from '../../services/utils'
 
+axios.defaults.baseURL = apiConfig.url
+axios.defaults.headers.common['Accept'] = apiConfig.acceptHeader.json
+axios.defaults.headers.patch['Content-Type'] = apiConfig.contentType.formUrlEncoded
 
-axios.defaults.baseURL = beestockApiConf.url
-axios.defaults.headers.common['Accept'] = beestockApiConf.acceptHeader.json
-axios.defaults.headers.patch['Content-Type'] = beestockApiConf.contentType.formUrlEncoded
-
-const setAuthorizationHeader = (token) => {
+const setAuthorizationHeader = () => {
+  const token = utils.getCurrentUserJwtToken()
   if (token) axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
 }
 
-setAuthorizationHeader()
+const removeAuthorizationHeader = () => {
+  delete axios.defaults.headers.common['Authorization']
+}
 
+setAuthorizationHeader()
 
 export default {
   get: axios.get,
@@ -21,5 +24,6 @@ export default {
   patch: axios.patch,
   delete: axios.delete,
   head: axios.head,
-  setAuthorizationHeader
+  setAuthorizationHeader,
+  removeAuthorizationHeader
 }

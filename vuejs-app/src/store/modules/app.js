@@ -115,7 +115,7 @@ const actions = {
       })
       .then(token => {
         dispatch('storeJwtToken', token)
-        api.setAuthorizationHeader(token)
+        api.setAuthorizationHeader()
       })
   },
   async fetchUserDetails ({ commit, dispatch }) {

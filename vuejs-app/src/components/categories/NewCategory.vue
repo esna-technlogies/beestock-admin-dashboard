@@ -80,8 +80,6 @@
 </template>
 
 <script>
-  import AppAlert from '../app-alert/AppAlert'
-
   import categoryService from '../../services/category'
   import routerHelper from '../../helpers/router'
 
@@ -89,9 +87,6 @@
     name: 'new-category',
     metaInfo: {
       title: 'New Category'
-    },
-    components: {
-      AppAlert
     },
     data () {
       return {

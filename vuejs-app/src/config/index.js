@@ -4,7 +4,7 @@ import prodConf from './prod.conf'
 const merge = require('webpack-merge')
 
 
-export const beestockApiConf = {
+export const beestockApi = {
   url: 'http://api.beesstock.com',
   acceptHeader: {
     json: 'application/json'
@@ -32,7 +32,7 @@ export const routeConditions = {
 }
 
 let config = {
-  beestockApiConf,
+  beestockApi,
   routeConditions,
   logPrefixes,
   userRoles
