@@ -10,4 +10,4 @@ RUN npm install --save express connect-history-api-fallback
 
 RUN npm install && npm run build
 
-CMD node server.js
+CMD node prod-server.js
