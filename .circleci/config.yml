@@ -30,7 +30,7 @@ jobs:
           name: Push Docker Image to AWS ECR
           command: |
             if [ "${CIRCLE_BRANCH}" == "immutable-infrastructure" ] || [ "${CIRCLE_BRANCH}" == "shendy-develop" ]; then
-              AWS_REGION='us-east-2'
+              AWS_REGION='us-west-2'
               CLUSTER='dev-beestock'
               TASK='dev-admin-dashboard'
               FAMILY='dev-admin-dashboard'
@@ -57,7 +57,7 @@ jobs:
                   "portMappings": [
                     {
                       "containerPort": 8080,
-                      "hostPort": 8080
+                      "hostPort": 8081
                     }
                   ]
                 }
