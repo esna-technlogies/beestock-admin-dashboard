@@ -22,8 +22,8 @@
               :perPage="perPage"
               track-by="uuid"
               @vuetable:row-clicked="rowClicked"
-              @vuetable:pagination-data="onPaginationData">
-    </vuetable>
+              @vuetable:pagination-data="onPaginationData"
+              @vuetable:load-success="tableDataLoaded" />
 
     <div class="row no-gutters well justify-content-between">
       <div class="col">
@@ -38,20 +38,23 @@
         </vuetable-pagination>
       </div>
     </div>
+
+    <basic-loader v-show="isLoading" />
   </div>
 </template>
 
 <script>
   import Vue from 'vue'
-  import Vuetable from 'vuetable-2/src/components/Vuetable'
   import LocalData from './data/local-data'
+  import BasicLoader from '../loaders/BasicLoader'
   import DataTableStyles from './data/data-table-styles'
+  import Vuetable from 'vuetable-2/src/components/Vuetable'
   import FilterBar from './datatable-components/FilterBar.vue'
   import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
   import ItemsPerPage from './datatable-components/ItemsPerPage.vue'
   import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
 
-  import helpers from '../../helpers/index'
+  import utils from '../../services/utils'
   import CountriesList from './data/country-list'
 
   const defaultPerPage = 10
@@ -62,6 +65,7 @@
     components: {
       Vuetable,
       FilterBar,
+      BasicLoader,
       ItemsPerPage,
       VuetablePagination,
       VuetablePaginationInfo
@@ -108,18 +112,19 @@
     },
     data () {
       return {
+        isLoading: true,
         rows: originalData,
         tableData: LocalData,
         perPage: defaultPerPage,
         colorClasses: {},
+        dataCount: 0,
+        css: DataTableStyles,
         moreParams: {
           limit: defaultPerPage
         },
-        dataCount: 0,
-        css: DataTableStyles,
         httpOptions: {
           headers: {
-            'Authorization': 'Bearer ' + helpers.getTokenValueFromCookie()
+            'Authorization': 'Bearer ' + utils.getCurrentUserJwtToken()
           }
         }
       }
@@ -224,7 +229,19 @@
         }
 
         return transformed
+      },
+      tableDataLoaded () {
+        this.stopLoading()
+      },
+      startLoading () {
+        this.isLoading = true
+      },
+      stopLoading () {
+        this.isLoading = false
       }
+    },
+    created () {
+      this.startLoading()
     }
   }
 </script>

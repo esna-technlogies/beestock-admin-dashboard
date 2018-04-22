@@ -1,3 +1,5 @@
+import utils from '../services/utils'
+
 const menuItems = state => state.menu.items
 const sidebarOpened = state => state.app.sidebar.opened
 const toggleWithoutAnimation = state => state.app.sidebar.withoutAnimation
@@ -13,6 +15,14 @@ const categoryEndpoint = state => state.app.api.beeStock.category
 const photoEndpoint = state => state.app.api.beeStock.photo
 const roles = state => state.app.roles
 
+const isPageLoading = state => state.app.isPageLoading
+const isAuthenticatedUser = state => state.app.isAuthenticatedUser
+const currentUserUUID = () => () => utils.getCurrentUserUUID()
+const currentUserJwtToken = () => () => utils.getCurrentUserJwtToken()
+const currentUserRoles = () => () => utils.getCurrentUserRoles()
+const jwtTokenExpireDate = () => () => utils.getJwtTokenExpireDate()
+
+
 export {
   menuItems,
   toggleWithoutAnimation,
@@ -26,5 +36,11 @@ export {
   userAccountEndpoint,
   categoryEndpoint,
   photoEndpoint,
-  roles
+  roles,
+  isPageLoading,
+  isAuthenticatedUser,
+  currentUserUUID,
+  currentUserRoles,
+  currentUserJwtToken,
+  jwtTokenExpireDate
 }

@@ -2,10 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Meta from 'vue-meta'
 
+import routes from './routes'
 
 import menuModule from 'vuex-store/modules/menu'
-
-import lazyLoading from '../store/modules/menu/lazyLoading'
 
 Vue.use(Router)
 Vue.use(Meta)
@@ -14,51 +13,7 @@ export default new Router({
   mode: 'history',
   routes: [
     ...generateRoutesFromMenu(menuModule.state.items),
-    {
-      name: 'Login',
-      path: '/auth/login',
-      component: lazyLoading('auth/login/Login'),
-      meta: {
-        secured: false
-      }
-    },
-    {
-      name: 'UserDetails',
-      path: '/users/:uuid',
-      component: lazyLoading('users/UserDetails'),
-      props: true,
-      meta: {
-        secured: true
-      }
-    },
-    {
-      name: 'NewCategory',
-      path: '/categories/new',
-      component: lazyLoading('categories/NewCategory'),
-      props: true,
-      meta: {
-        secured: true
-      }
-
-    },
-    {
-      name: 'CategoryDetails',
-      path: '/category/:uuid',
-      component: lazyLoading('categories/CategoryDetails'),
-      props: true,
-      meta: {
-        secured: true
-      }
-    },
-    {
-      name: 'PhotoDetails',
-      path: '/photos/:uuid',
-      component: lazyLoading('photos/PhotoDetails'),
-      props: true,
-      meta: {
-        secured: true
-      }
-    },
+    ...routes,
     {path: '*', redirect: { name: getDefaultRoute(menuModule.state.items).name }}
   ]
 })

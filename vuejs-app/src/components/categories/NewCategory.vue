@@ -80,18 +80,13 @@
 </template>
 
 <script>
-  import AppAlert from '../app-alert/AppAlert'
-
   import categoryService from '../../services/category'
-  import routerHelper from '../../helpers/router-helper'
+  import routerHelper from '../../helpers/router'
 
   export default {
     name: 'new-category',
     metaInfo: {
       title: 'New Category'
-    },
-    components: {
-      AppAlert
     },
     data () {
       return {

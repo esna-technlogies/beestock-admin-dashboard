@@ -80,7 +80,7 @@
   import VuesticPreLoader from '../vuestic-components/vuestic-preloader/VuesticPreLoader'
 
   import photoService from '../../services/photo'
-  import routerHelper from '../../helpers/router-helper'
+  import routerHelper from '../../helpers/router'
 
   export default {
     name: 'photo-details',

@@ -148,7 +148,7 @@ import VuesticSimpleSelect from '../vuestic-components/vuestic-simple-select/Vue
 
 import categoryService from '../../services/category'
 import photoService from '../../services/photo'
-import routerHelper from '../../helpers/router-helper'
+import routerHelper from '../../helpers/router'
 
 export default {
   name: 'category-details',

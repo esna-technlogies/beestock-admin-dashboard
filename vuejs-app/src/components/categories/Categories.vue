@@ -1,33 +1,35 @@
 <template>
   <div class="Categories">
-    <app-alert :alertType="alertType" :alertMessage="alertMessage"></app-alert>
+    <main-alert v-if="alertType" :alertType="alertType" :alertMessage="alertMessage"/>
 
-    <div class="Set row">
-      <div class="col-md-12">
+    <div class="Set row no-gutters">
+      <div class="col-12">
           <div class="widget">
             <div class="widget-header row no-gutters justify-content-between">
-              <div class="col-2 text-left ma-0 pa-0">
+              <div class="col-3 text-left ma-0 pa-0">
                 <div>{{ 'tables.categories'  | translate }}</div>
               </div>
 
-              <div class="col-md-4 text-right">
-                <button
-                  @click="newCategory()"
+              <div class="col-1 text-right">
+                <router-link
+                  :to="{ name: 'NewCategory' }"
+                  tag="button"
                   class="btn btn-primary btn-micro btn-with-icon rounded-icon" style="font-size: 90% !important;">
                     <div class="btn-with-icon-content">
                       <i class="glyphicon glyphicon-plus" style="font-size: 1rem; padding: 0.3rem 0.3rem"></i>
                     </div>
-                </button>
+                </router-link>
               </div>
             </div>
 
             <div class="widget-body">
-              <categories-data-table :apiUrl="apiUrl"
-                                :tableFields="tableFields"
-                                :itemsPerPage="itemsPerPage"
-                                :sortFunctions="sortFunctions"
-                                :apiMode="apiMode"
-                                :paginationPath="paginationPath"></categories-data-table>
+              <categories-data-table
+                :apiUrl="apiUrl"
+                :apiMode="apiMode"
+                :tableFields="tableFields"
+                :itemsPerPage="itemsPerPage"
+                :sortFunctions="sortFunctions"
+                :paginationPath="paginationPath" />
             </div>
           </div>
       </div>
@@ -36,11 +38,15 @@
 </template>
 
 <script>
+  import MainAlert from '../alerts/MainAlert'
   import CategoriesDataTable from './CategoriesDataTable'
-  import FieldsDef from './data/fields-definition'
   import Widget from '../vuestic-components/vuestic-widget/VuesticWidget'
+
+  import FieldsDef from './data/fields-definition'
   import ItemsPerPageDef from './data/items-per-page-definition'
-  import AppAlert from '../app-alert/AppAlert'
+
+  import {beestockApi} from '../../config'
+  import {category as categoryEndpoint} from '../../api/beestock/endpoints'
 
   export default {
     name: 'categories',
@@ -48,8 +54,8 @@
       title: 'Categories'
     },
     components: {
-      AppAlert,
       Widget,
+      MainAlert,
       CategoriesDataTable
     },
     props: {
@@ -64,8 +70,8 @@
     },
     data () {
       return {
-        apiUrl: 'http://api.beesstock.com/api/photo-service/category',
         apiMode: true,
+        apiUrl: beestockApi.url + categoryEndpoint.findAll,
         tableFields: FieldsDef.tableFields,
         itemsPerPage: ItemsPerPageDef.itemsPerPage,
         sortFunctions: FieldsDef.sortFunctions,

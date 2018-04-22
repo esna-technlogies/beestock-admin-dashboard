@@ -1,36 +1,36 @@
 <template>
   <div class="Users">
-    <div class="row" v-if="alertType">
-      <div class="col-md-12">
-        <vuestic-alert :type="alertType" :withCloseBtn="true">
-          <span class="badge badge-pill" :class="'badge-' + alertType">{{ alertType | translate }}</span>
-          {{ alertMessage | translate }}
-          <i class="fa fa-close alert-close"></i>
-        </vuestic-alert>
+    <main-alert v-if="alertType" :alertType="alertType" :alertMessage="alertMessage"/>
+
+    <div class="row no-gutters justify-content-center">
+      <div class="col-12">
+        <widget :headerText="$t('tables.users')">
+          <users-data-table
+            :apiUrl="apiUrl"
+            :apiMode="apiMode"
+            :tableFields="tableFields"
+            :itemsPerPage="itemsPerPage"
+            :sortFunctions="sortFunctions"
+            :paginationPath="paginationPath" />
+        </widget>
       </div>
     </div>
-
-      <div class="row">
-        <div class="col-md-12">
-          <widget :headerText="$t('tables.users')">
-            <users-data-table :apiUrl="apiUrl"
-                        :tableFields="tableFields"
-                        :itemsPerPage="itemsPerPage"
-                        :sortFunctions="sortFunctions"
-                        :apiMode="apiMode"
-                        :paginationPath="paginationPath"></users-data-table>
-          </widget>
-        </div>
-      </div>
   </div>
 </template>
 
 <script>
+  import MainAlert from '../alerts/MainAlert'
   import UsersDataTable from './UsersDataTable'
-  import FieldsDef from './data/fields-definition'
+  import PagePreLoader from '../loaders/PagePreLoader'
   import Widget from '../vuestic-components/vuestic-widget/VuesticWidget'
   import VuesticAlert from '../vuestic-components/vuestic-alert/VuesticAlert'
+
+  import FieldsDef from './data/fields-definition'
   import ItemsPerPageDef from './data/items-per-page-definition'
+
+  import {beestockApi} from '../../config'
+  import {userAccount as userAccountEndpoint} from '../../api/beestock/endpoints'
+
 
   export default {
     name: 'Users',
@@ -49,13 +49,15 @@
     },
     components: {
       Widget,
+      MainAlert,
       VuesticAlert,
+      PagePreLoader,
       UsersDataTable
     },
     data () {
       return {
-        apiUrl: 'http://api.beesstock.com/api/user-service/user',
         apiMode: true,
+        apiUrl: beestockApi.url + userAccountEndpoint.findAll,
         tableFields: FieldsDef.tableFields,
         itemsPerPage: ItemsPerPageDef.itemsPerPage,
         sortFunctions: FieldsDef.sortFunctions,
